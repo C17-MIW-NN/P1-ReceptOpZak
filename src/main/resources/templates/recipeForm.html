@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recept toevoegen</title>
+</head>
+<body>
+
+<h1>Voeg een nieuw recept toe</h1>
+
+<form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
+
+    <input type="hidden" th:field="*{recipeId}">
+
+    <div>
+        <label for="recipeName">Naam:</label>
+        <input type="text" id="recipeName" th:field="*{recipeName}">
+    </div>
+
+
+    <div>
+        <label for="categories">Categorie:</label>
+        <select id="categories" th:field="*{categories}" multiple>
+            <option th:each="category : ${allCategories}"
+                    th:text="${category.categoryName}"
+                    th:value="${category.categoryId}">
+            </option>
+        </select>
+    </div>
+
+
+    <div>
+        <input type="submit" value="Opslaan">
+    </div>
+
+
+    <p>
+        <a th:href="@{/recipe/all}">Home</a>
+    </p>
+</form>
+</body>
+</html>

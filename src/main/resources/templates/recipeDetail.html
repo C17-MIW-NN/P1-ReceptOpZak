@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recept informatie</title>
+</head>
+<body>
+
+<h1>Recept: <span th:text="${recipe.recipeName}"></span></h1>
+
+<a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.recipeName})}">Bewerk</a>
+<a th:href="@{/recipe/delete/{recipeId}(recipeId = ${recipe.recipeId})}">Verwijder</a>
+
+<h3>Categorieën</h3>
+
+<ul>
+    <li th:each="category : ${recipe.categories}" th:text="${category.categoryName}"></li>
+</ul>
+
+<p>
+    <a th:href="@{/recipe/all}">Home</a>
+</p>
+
+</body>
+</html>
