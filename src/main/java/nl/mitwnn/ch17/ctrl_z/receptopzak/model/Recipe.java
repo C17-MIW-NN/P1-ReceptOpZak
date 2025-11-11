@@ -22,6 +22,9 @@ public class Recipe {
     @ManyToMany
     private Set<Category> categories;
 
+    @ManyToOne
+    private User user;
+
     public Long getRecipeId() {
         return recipeId;
     }
