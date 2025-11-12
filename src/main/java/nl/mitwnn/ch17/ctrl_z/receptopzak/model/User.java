@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Sybren Bonnema
@@ -19,9 +18,6 @@ public class User {
     private Long userId;
 
     private String userName;
-
-    @OneToMany(mappedBy = "user")
-    private List<Recipe> recipes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Recipe> recipes = new ArrayList<>();

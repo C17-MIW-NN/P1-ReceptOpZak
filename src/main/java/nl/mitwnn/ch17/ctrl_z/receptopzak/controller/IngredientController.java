@@ -1,8 +1,6 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Category;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
