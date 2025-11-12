@@ -1,8 +1,10 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Category;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.CategoryRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +22,10 @@ import java.util.Optional;
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
-    public CategoryController(CategoryRepository categoryRepository) {
+    private final RecipeRepository recipeRepository;
+    public CategoryController(CategoryRepository categoryRepository, RecipeRepository recipeRepository) {
         this.categoryRepository = categoryRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     // Show categories
@@ -47,7 +51,18 @@ public class CategoryController {
     // Delete categories
     @GetMapping("/delete/{categoryId}")
     public String deleteCategory(@PathVariable("categoryId") Long categoryId) {
-        categoryRepository.deleteById(categoryId);
+        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
+
+        if (optionalCategory.isPresent()) {
+            Category category = optionalCategory.get();
+
+            for (Recipe recipe : recipeRepository.findAll()) {
+                recipe.getCategories().remove(category);
+                recipeRepository.save(recipe);
+            }
+
+            categoryRepository.deleteById(categoryId);
+        }
         return "redirect:/category/all";
     }
 }

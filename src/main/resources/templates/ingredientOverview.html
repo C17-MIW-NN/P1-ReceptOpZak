@@ -12,11 +12,19 @@
     <thead>
     <tr>
         <th>Naam</th>
+        <th>Koolhydraten</th>
+        <th>Vetten</th>
+        <th>Eiwitten</th>
+        <th>Kcal per 100g</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="ingredient : ${allIngredients}">
         <td th:text="${ingredient.ingredientName}"></td>
+        <td th:text="${ingredient.ingredientCarb}"></td>
+        <td th:text="${ingredient.ingredientFat}"></td>
+        <td th:text="${ingredient.ingredientProtein}"></td>
+        <td th:text="${ingredient.ingredientKcal}"></td>
         <td>
             <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}">
                 Verwijder
@@ -30,6 +38,16 @@
     <div>
         <label for="ingredientName">Naam:</label>
         <input type="text" id="ingredientName" th:field="*{ingredientName}">
+
+        <label for="ingredientCarb">Koolhydraten per 100g:</label>
+        <input type="text" id="ingredientCarb" th:field="*{ingredientCarb}">
+
+        <label for="ingredientFat">Vetten per 100g:</label>
+        <input type="text" id="ingredientFat" th:field="*{ingredientFat}">
+
+        <label for="ingredientProtein">Protein per 100g:</label>
+        <input type="text" id="ingredientProtein" th:field="*{ingredientProtein}">
+
         <input type="submit" value="Voeg ingredient toe">
     </div>
 </form>

@@ -2,6 +2,7 @@ package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.CategoryRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,12 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
+    private final IngredientRepository ingredientRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     // Show recipes
@@ -47,7 +50,7 @@ public class RecipeController {
     // Add recipes
     @GetMapping("/recipe/add")
     public String showRecipeForm(Model datamodel) {
-        return showCategories(datamodel, new Recipe());
+        return showForm(datamodel, new Recipe());
     }
 
     // Edit recipes
@@ -56,15 +59,16 @@ public class RecipeController {
         Optional<Recipe> optionalRecipe = recipeRepository.findByRecipeName(recipeName);
 
         if (optionalRecipe.isPresent()) {
-            return showCategories(datamodel, optionalRecipe.get());
+            return showForm(datamodel, optionalRecipe.get());
         }
 
         return "redirect:/recipe/all";
     }
 
-    private String showCategories(Model datamodel, Recipe recipe) {
+    private String showForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
+        datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
 
         return "recipeForm";
     }
@@ -103,7 +107,7 @@ public class RecipeController {
         }
 
         if (result.hasErrors()) {
-            return showCategories(datamodel, recipeSave);
+            return showForm(datamodel, recipeSave);
         }
 
         recipeRepository.save(recipeSave);

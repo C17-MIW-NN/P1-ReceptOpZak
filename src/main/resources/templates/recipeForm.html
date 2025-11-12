@@ -26,6 +26,13 @@
                     th:value="${category.categoryId}">
             </option>
         </select>
+        <label for="categories">Ingredienten:</label>
+        <select id="ingredients" th:field="*{ingredients}" multiple>
+            <option th:each="ingredient : ${allIngredients}"
+                    th:text="${ingredient.ingredientName}"
+                    th:value="${ingredient.ingredientId}">
+            </option>
+        </select>
     </div>
 
 

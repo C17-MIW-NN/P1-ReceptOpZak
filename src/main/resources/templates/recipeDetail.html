@@ -22,9 +22,15 @@
         <li th:each="category : ${recipe.categories}" th:text="${category.categoryName}"></li>
     </ul>
 
-    <p>
-        <a th:href="@{/recipe/all}">Home</a>
-    </p>
+<h3>Ingrediënten</h3>
+
+<ul>
+    <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.ingredientName}"></li>
+</ul>
+
+<p>
+    <a th:href="@{/recipe/all}">Home</a>
+</p>
 
 
 
