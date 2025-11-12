@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-    <title>This is the base title</title>
+    <title>Recipe Home</title>
 
 </head>
 
@@ -46,19 +46,10 @@
         <a th:href="@{/recipe/add}">Voeg nieuw recept toe</a>
     </p>
 
-    <p>
-        <a th:href="@{/category/all}">Naar categorieën</a>
-    </p>
-
-
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
-
-<p>
-    <a th:href="@{/ingredient/all}">Naar ingrediënten</a>
-</p>
 
 </body>
 </html>

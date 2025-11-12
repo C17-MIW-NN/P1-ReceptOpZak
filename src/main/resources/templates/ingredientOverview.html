@@ -1,60 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Categorieën</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Ingrediënten overzicht</title>
+
 </head>
+
 <body>
 
-<h1>Ingrediënten</h1>
+<div th:replace="~{fragments/general :: navBar}"></div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Naam</th>
-        <th>Koolhydraten</th>
-        <th>Vetten</th>
-        <th>Eiwitten</th>
-        <th>Kcal per 100g</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="ingredient : ${allIngredients}">
-        <td th:text="${ingredient.ingredientName}"></td>
-        <td th:text="${ingredient.ingredientCarb}"></td>
-        <td th:text="${ingredient.ingredientFat}"></td>
-        <td th:text="${ingredient.ingredientProtein}"></td>
-        <td th:text="${ingredient.ingredientKcal}"></td>
-        <td>
-            <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}">
-                Verwijder
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
 
-<form th:action="@{/ingredient/save}" th:object="${formIngredients}" method="post">
-    <div>
-        <label for="ingredientName">Naam:</label>
-        <input type="text" id="ingredientName" th:field="*{ingredientName}">
+    <h1>Ingrediënten</h1>
 
-        <label for="ingredientCarb">Koolhydraten per 100g:</label>
-        <input type="text" id="ingredientCarb" th:field="*{ingredientCarb}">
+    <table>
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Koolhydraten</th>
+            <th>Vetten</th>
+            <th>Eiwitten</th>
+            <th>Kcal per 100g</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ingredient : ${allIngredients}">
+            <td th:text="${ingredient.ingredientName}"></td>
+            <td th:text="${ingredient.ingredientCarb}"></td>
+            <td th:text="${ingredient.ingredientFat}"></td>
+            <td th:text="${ingredient.ingredientProtein}"></td>
+            <td th:text="${ingredient.ingredientKcal}"></td>
+            <td>
+                <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}">
+                    Verwijder
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-        <label for="ingredientFat">Vetten per 100g:</label>
-        <input type="text" id="ingredientFat" th:field="*{ingredientFat}">
+    <form th:action="@{/ingredient/save}" th:object="${formIngredients}" method="post">
+        <div>
+            <label for="ingredientName">Naam:</label>
+            <input type="text" id="ingredientName" th:field="*{ingredientName}">
 
-        <label for="ingredientProtein">Protein per 100g:</label>
-        <input type="text" id="ingredientProtein" th:field="*{ingredientProtein}">
+            <label for="ingredientCarb">Koolhydraten per 100g:</label>
+            <input type="text" id="ingredientCarb" th:field="*{ingredientCarb}">
 
-        <input type="submit" value="Voeg ingredient toe">
-    </div>
-</form>
+            <label for="ingredientFat">Vetten per 100g:</label>
+            <input type="text" id="ingredientFat" th:field="*{ingredientFat}">
 
-<p>
-    <a th:href="@{/recipe/all}">Home</a>
-</p>
+            <label for="ingredientProtein">Protein per 100g:</label>
+            <input type="text" id="ingredientProtein" th:field="*{ingredientProtein}">
+
+            <input type="submit" value="Voeg ingredient toe">
+        </div>
+    </form>
+
+    <p>
+        <a th:href="@{/recipe/all}">Home</a>
+    </p>
+
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 
 </body>
 </html>
