@@ -19,11 +19,14 @@ public class Recipe {
     @Column(unique = true)
     String recipeName;
 
+    @ManyToOne
+    private User user;
+
     @ManyToMany
     private Set<Category> categories;
 
-    @ManyToOne
-    private User user;
+    @ManyToMany
+    private Set<Ingredient> ingredients;
 
     public Long getRecipeId() {
         return recipeId;

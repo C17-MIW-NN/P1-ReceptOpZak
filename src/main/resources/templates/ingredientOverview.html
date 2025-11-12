@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorieën</title>
+</head>
+<body>
+
+<h1>Ingrediënten</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Naam</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ingredient : ${allIngredients}">
+        <td th:text="${ingredient.ingredientName}"></td>
+        <td>
+            <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}">
+                Verwijder
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<form th:action="@{/ingredient/save}" th:object="${formIngredients}" method="post">
+    <div>
+        <label for="ingredientName">Naam:</label>
+        <input type="text" id="ingredientName" th:field="*{ingredientName}">
+        <input type="submit" value="Voeg ingredient toe">
+    </div>
+</form>
+
+<p>
+    <a th:href="@{/recipe/all}">Home</a>
+</p>
+
+</body>
+</html>

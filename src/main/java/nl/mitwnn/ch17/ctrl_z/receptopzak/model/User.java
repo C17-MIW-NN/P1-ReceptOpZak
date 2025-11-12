@@ -18,8 +18,10 @@ public class User {
     @GeneratedValue
     private Long userId;
 
-    @Column(unique = true)
-    String userName;
+    private String userName;
+
+    @OneToMany(mappedBy = "user")
+    private List<Recipe> recipes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Recipe> recipes = new ArrayList<>();
