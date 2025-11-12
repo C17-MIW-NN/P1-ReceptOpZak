@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Recept informatie</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>This is the base title</title>
+
 </head>
+
 <body>
 
-<h1>Recept: <span th:text="${recipe.recipeName}"></span></h1>
+<div th:replace="~{fragments/general :: navBar}"></div>
 
-<a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.recipeName})}">Bewerk</a>
-<a th:href="@{/recipe/delete/{recipeId}(recipeId = ${recipe.recipeId})}">Verwijder</a>
+<div class="container">
+    <h1>Recept: <span th:text="${recipe.recipeName}"></span></h1>
 
-<h3>Categorieën</h3>
+    <a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.recipeName})}">Bewerk</a>
+    <a th:href="@{/recipe/delete/{recipeId}(recipeId = ${recipe.recipeId})}">Verwijder</a>
 
-<ul>
-    <li th:each="category : ${recipe.categories}" th:text="${category.categoryName}"></li>
-</ul>
+    <h3>Categorieën</h3>
 
-<p>
-    <a th:href="@{/recipe/all}">Home</a>
-</p>
+    <ul>
+        <li th:each="category : ${recipe.categories}" th:text="${category.categoryName}"></li>
+    </ul>
+
+    <p>
+        <a th:href="@{/recipe/all}">Home</a>
+    </p>
+
+
+
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 
 </body>
 </html>
