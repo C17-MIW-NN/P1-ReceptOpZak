@@ -1,51 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Recepten</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>This is the base title</title>
+
 </head>
+
 <body>
 
+<div th:replace="~{fragments/general :: navBar}"></div>
 
-<h1>Alle recepten</h1>
+<div class="container">
+    <h1>Alle recepten</h1>
+    <div>
+        <a th:href="@{/recipe/all}"
+           th:classappend="${selectedCategoryId} == null ? ' active' : ''">
+            Alle
+        </a>
 
-<div>
-    <a th:href="@{/recipe/all}"
-       th:classappend="${selectedCategoryId} == null ? ' active' : ''">
-        Alle
-    </a>
+        <a th:each="category : ${allCategories}"
+           th:href="@{/recipe/all(categoryId=${category.categoryId})}"
+           th:text="${category.categoryName}"
+           th:classappend="${selectedCategoryId} == category.categoryId ? ' active' : ''">
+        </a>
+    </div>
 
-    <a th:each="category : ${allCategories}"
-       th:href="@{/recipe/all(categoryId=${category.categoryId})}"
-       th:text="${category.categoryName}"
-       th:classappend="${selectedCategoryId} == category.categoryId ? ' active' : ''">
-    </a>
+    <table>
+        <thead>
+        <tr>
+            <th>Titel</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recipe : ${recipes}">
+            <td>
+                <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}"
+                   th:text="${recipe.recipeName}">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <a th:href="@{/recipe/add}">Voeg nieuw recept toe</a>
+    </p>
+
+    <p>
+        <a th:href="@{/category/all}">Naar categorieën</a>
+    </p>
+
+
 </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Titel</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="recipe : ${recipes}">
-        <td>
-            <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}"
-               th:text="${recipe.recipeName}">
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<p>
-    <a th:href="@{/recipe/add}">Voeg nieuw recept toe</a>
-</p>
-
-<p>
-    <a th:href="@{/category/all}">Naar categorieën</a>
-</p>
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 
 </body>
 </html>
