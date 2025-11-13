@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Random;
+
 /**
  * @author Sybren Bonnema
- * Purpose for the class
+ * Helps the program store and display users
  */
 
 @Controller
@@ -53,4 +56,5 @@ public class UserController {
         userRepository.deleteById(id);
         return "redirect:/user/all";
     }
+
 }
