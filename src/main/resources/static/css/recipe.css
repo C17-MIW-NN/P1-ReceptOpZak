@@ -4,15 +4,11 @@
     margin: 40px auto;
     width: 70%;
     table-layout: fixed;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 10px;
     border-collapse: separate;
     overflow: hidden;
     background-color: var(--bs-tertiary-bg);
-}
-
-.ingredientTableHeader {
-    border-bottom: 2px solid black;
 }
 
 .ingredientCell {
@@ -23,14 +19,9 @@
 
 .deleteButton {
     text-align: center;
-    background-color: red;
-    border-radius: 10px;
 }
 
-.deleteButtonContent {
-    text-decoration: none;
-    color: white;
-}
+
 
 /*Table settings ingredient form*/
 
@@ -45,8 +36,8 @@
 }
 
 #ingredientSubmit {
-    background-color: rgb(13, 110, 253);
-    color: white;
-    border: none;
-    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    font-size: 1rem;
 }

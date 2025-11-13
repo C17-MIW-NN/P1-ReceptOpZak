@@ -35,7 +35,7 @@
             <td th:text="${ingredient.ingredientKcal}" class="ingredientCell"></td>
             <td class="deleteButton">
                 <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}"
-                   class="deleteButtonContent">
+                   class="btn btn-danger btn-sm">
                     Verwijder
                 </a>
             </td>
@@ -62,7 +62,9 @@
             </td>
             <td>
                 <label for="ingredientSubmit"></label>
-                <input type="submit" class="ingredientInput" id="ingredientSubmit" value="Voeg toe">
+                <button type="submit" class="btn btn-primary" id="ingredientSubmit">
+                    Voeg toe
+                </button>
             </td>
         </tr>
         </tbody>
