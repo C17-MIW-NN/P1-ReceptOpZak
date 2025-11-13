@@ -10,10 +10,10 @@
 
 <div th:replace="~{fragments/general :: navBar}"></div>
 
-<div class="container">
+<div class="container mt-5">
 
-    <h1>Gebruikers overzicht</h1>
-    <a href="/user/add" class="btn btn-success mb-3">Nieuwe gebruiker toevoegen</a>
+    <h2>Gebruikers overzicht</h2>
+
 
     <table class="table">
         <thead>
@@ -35,6 +35,7 @@
         </tr>
         </tbody>
     </table>
+    <a href="/user/add" class="btn btn-primary mb-3">Nieuwe gebruiker toevoegen</a>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

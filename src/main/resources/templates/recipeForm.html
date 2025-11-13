@@ -10,9 +10,9 @@
 
 <div th:replace="~{fragments/general :: navBar}"></div>
 
-<div class="container">
+<div class="container mt-5">
 
-    <h1>Nieuw recept</h1>
+    <h2>Nieuw recept</h2>
 
     <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
     <legend>Voer hier het recept voor je gerecht in</legend>
