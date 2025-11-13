@@ -12,44 +12,34 @@
 
 <div class="container">
 
-    <h1>Voeg een nieuw recept toe</h1>
+    <h1>Nieuw recept</h1>
 
     <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
-
-        <input type="hidden" th:field="*{recipeId}">
-
-        <div>
-            <label for="recipeName">Naam:</label>
-            <input type="text" id="recipeName" th:field="*{recipeName}">
+    <legend>Voer hier het recept voor je gerecht in</legend>
+        <div class="mb-3">
+            <label for="recipeName" class="form-label">Naam</label>
+            <input type="text" id="recipeName" th:field="*{recipeName}" class="form-control"
+                   placeholder="Bijvoorbeeld: 'Mosterdsoep'">
         </div>
-
-
-        <div>
-            <label for="categories">Categorie:</label>
-            <select id="categories" th:field="*{categories}" multiple>
+        <div class="mb-3">
+            <label for="categories" class="form-label">Categorie (meerdere opties mogelijk)</label>
+            <select id="categories" class="form-select" th:field="*{categories}" multiple>
                 <option th:each="category : ${allCategories}"
                         th:text="${category.categoryName}"
                         th:value="${category.categoryId}">
                 </option>
             </select>
-            <label for="categories">Ingredienten:</label>
-            <select id="ingredients" th:field="*{ingredients}" multiple>
+        </div>
+        <div class="mb-3">
+            <label for="ingredients" class="form-label">Ingrediënten (meerdere opties mogelijk)</label>
+            <select id="ingredients" class="form-select" th:field="*{ingredients}" multiple>
                 <option th:each="ingredient : ${allIngredients}"
                         th:text="${ingredient.ingredientName}"
                         th:value="${ingredient.ingredientId}">
                 </option>
             </select>
         </div>
-
-
-        <div>
-            <input type="submit" value="Opslaan">
-        </div>
-
-
-        <p>
-            <a th:href="@{/recipe/all}">Home</a>
-        </p>
+        <button type="submit" class="btn btn-primary">Opslaan</button>
     </form>
 
 </div>
