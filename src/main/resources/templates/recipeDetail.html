@@ -20,6 +20,13 @@
              class="img-fluid rounded" alt="Recept afbeelding">
     </div>
 
+    <div class="mb-5">
+        <h4>Categorieën</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="category : ${recipe.categories}" th:text="${category.categoryName}">Categorie</li>
+        </ul>
+    </div>
+
 
     <p class="text-muted" th:if="${recipe.user}">
         Toegevoegd door: <strong th:text="${recipe.user.userName}">Gebruiker</strong>
@@ -50,18 +57,11 @@
 
 
     <div class="mb-5">
-        <a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.recipeName})}" class="btn btn-warning me-2">✏️ Bewerk</a>
-        <a th:href="@{/recipe/delete/{recipeId}(recipeId = ${recipe.recipeId})}" class="btn btn-danger"
-           onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">🗑️ Verwijder</a>
+        <a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.recipeName})}" class="btn btn-warning me-2 rounded-5">Bewerk</a>
+        <a th:href="@{/recipe/delete/{recipeId}(recipeId = ${recipe.recipeId})}" class="btn btn-danger rounded-5"
+           onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">Verwijder</a>
     </div>
 
-
-    <div class="mb-5">
-        <h4>Categorieën</h4>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="category : ${recipe.categories}" th:text="${category.categoryName}">Categorie</li>
-        </ul>
-    </div>
 
 </div>
 

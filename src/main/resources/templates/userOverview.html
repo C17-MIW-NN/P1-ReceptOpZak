@@ -28,14 +28,14 @@
             <td th:text="${user.userId}">1</td>
             <td th:text="${user.userName}">Naam</td>
             <td>
-                <a th:href="@{/user/edit/{id}(id=${user.userId})}" class="btn btn-warning btn-sm">Bewerk</a>
-                <a th:href="@{/user/delete/{id}(id=${user.userId})}" class="btn btn-danger btn-sm"
+                <a th:href="@{/user/edit/{id}(id=${user.userId})}" class="btn btn-warning btn-sm rounded-5">Bewerk</a>
+                <a th:href="@{/user/delete/{id}(id=${user.userId})}" class="btn btn-danger btn-sm rounded-5"
                    onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?');">Verwijder</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="/user/add" class="btn btn-primary mb-3">Nieuwe gebruiker toevoegen</a>
+    <a href="/user/add" class="btn btn-primary mb-3 rounded-5">Nieuwe gebruiker toevoegen</a>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
