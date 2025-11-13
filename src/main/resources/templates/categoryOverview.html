@@ -10,45 +10,15 @@
 
 <div th:replace="~{fragments/general :: navBar}"></div>
 
-<div class="container">
+<div class="container mt-5">
 
-    <h1>Categorieën</h1>
+    <div th:replace="~{fragments/category.html :: categoryForm(${allCategories})}"></div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Naam</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="category : ${allCategories}">
-            <td th:text="${category.categoryName}"></td>
-            <td>
-                <a th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}">
-                    Verwijder
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <form th:action="@{/category/save}" th:object="${formCategories}" method="post">
-        <div>
-            <label for="categoryName">Naam:</label>
-            <input type="text" id="categoryName" th:field="*{categoryName}">
-            <input type="submit" value="Voeg categorie toe">
-        </div>
-    </form>
-
-    <p>
-        <a th:href="@{/recipe/all}">Home</a>
-    </p>
-
-</div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
+</div>
 </body>
 </html>
 

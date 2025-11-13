@@ -18,23 +18,6 @@
 
     <div th:replace="~{fragments/recipe.html :: recipeCards(${recipes})}"></div>
 
-<!--    <table>-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>Titel</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="recipe : ${recipes}">-->
-<!--            <td>-->
-<!--                <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}"-->
-<!--                   th:text="${recipe.recipeName}">-->
-<!--                </a>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-
    <div th:replace="~{fragments/recipe.html :: recipeAdd(${recipes})}"></div>
 
 </div>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="categoryForm(allCategories)">
+    <h2 class="mb-4">Overzicht alle categorieën</h2>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table">
+            </thead>
+            <tbody>
+            <tr th:each="category : ${allCategories}">
+                <td th:text="${category.categoryName}"></td>
+                <td class="text-center">
+                    <a th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}"
+                       class="text-danger" title="Delete">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form th:action="@{/category/save}" method="post" th:object="${formCategories}" class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label for="categoryName" class="col-form-label">Naam: </label>
+        </div>
+        <div class="col-auto">
+            <input type="text" id="categoryName" th:field="*{categoryName}" class="form-control rounded-5" placeholder="Nieuwe categorie">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary rounded-5">Voeg categorie toe</button>
+        </div>
+    </form>
+
+</div>
+</html>
