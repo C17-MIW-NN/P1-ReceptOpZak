@@ -22,6 +22,10 @@
         </div>
     </div>
 
+    <p class="text-muted" th:if="${recipe.user}">
+        Toegevoegd door: <strong th:text="${recipe.user.userName}">Gebruiker</strong>
+    </p>
+
     <a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.recipeName})}">Bewerk</a>
     <a th:href="@{/recipe/delete/{recipeId}(recipeId = ${recipe.recipeId})}">Verwijder</a>
 

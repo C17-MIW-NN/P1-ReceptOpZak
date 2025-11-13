@@ -5,6 +5,7 @@ import nl.mitwnn.ch17.ctrl_z.receptopzak.controller.RecipeController;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Category;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
