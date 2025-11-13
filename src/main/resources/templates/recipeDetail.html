@@ -13,6 +13,15 @@
 <div class="container">
     <h1>Recept: <span th:text="${recipe.recipeName}"></span></h1>
 
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
     <a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.recipeName})}">Bewerk</a>
     <a th:href="@{/recipe/delete/{recipeId}(recipeId = ${recipe.recipeId})}">Verwijder</a>
 
@@ -27,12 +36,6 @@
 <ul>
     <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.ingredientName}"></li>
 </ul>
-
-<p>
-    <a th:href="@{/recipe/all}">Home</a>
-</p>
-
-
 
 </div>
 
