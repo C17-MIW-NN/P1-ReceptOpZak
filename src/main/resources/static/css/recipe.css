@@ -1,0 +1,52 @@
+/* Table settings ingredients page */
+
+.ingredientTable {
+    margin: 40px auto;
+    width: 70%;
+    table-layout: fixed;
+    border: 2px solid black;
+    border-radius: 10px;
+    border-collapse: separate;
+    overflow: hidden;
+    background-color: var(--bs-tertiary-bg);
+}
+
+.ingredientTableHeader {
+    border-bottom: 2px solid black;
+}
+
+.ingredientCell {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+.deleteButton {
+    text-align: center;
+    background-color: red;
+    border-radius: 32px;
+}
+
+.deleteButtonContent {
+    text-decoration: none;
+    color: white;
+}
+
+/*Table settings ingredient form*/
+
+.ingredientInput {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 32px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+#ingredientSubmit {
+    background-color: rgb(13, 110, 253);
+    color: white;
+    border: none;
+    border-radius: 32px;
+}

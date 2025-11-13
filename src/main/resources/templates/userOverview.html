@@ -12,8 +12,29 @@
 
 <div class="container">
 
-    <h1>Gebruikers</h1>
+    <h1>Gebruikers overzicht</h1>
+    <a href="/user/add" class="btn btn-success mb-3">Nieuwe gebruiker toevoegen</a>
 
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Naam</th>
+            <th>Acties</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.userId}">1</td>
+            <td th:text="${user.userName}">Naam</td>
+            <td>
+                <a th:href="@{/user/edit/{id}(id=${user.userId})}" class="btn btn-warning btn-sm">Bewerk</a>
+                <a th:href="@{/user/delete/{id}(id=${user.userId})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?');">Verwijder</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

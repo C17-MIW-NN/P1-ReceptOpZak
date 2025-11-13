@@ -4,8 +4,7 @@ import nl.mitwnn.ch17.ctrl_z.receptopzak.model.User;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Sybren Bonnema
@@ -32,6 +31,26 @@ public class UserController {
 
     @GetMapping("/add")
     public String showUserForm(Model datamodel) {
+        datamodel.addAttribute("user", new User());
         return "userForm";
+    }
+
+    @PostMapping("/save")
+    public String saveUser(@ModelAttribute User user) {
+        userRepository.save(user);
+        return "redirect:/user/all";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+       User user = userRepository.findById(id).orElseThrow();
+       model.addAttribute("user", user);
+       return "userForm";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+        return "redirect:/user/all";
     }
 }
