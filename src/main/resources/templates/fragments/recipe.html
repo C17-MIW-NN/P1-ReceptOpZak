@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!---/**
+ * @author Sabien Ruijgrok
+ * Here is the code for the fragments for in the recipe pages
+ */
+ -->
+
+
+<div th:fragment="categoryButton(allCategories)">
+    <div class="btn-group mb-3 mt-3" role="group" aria-label="Categorieën filter">
+        <a th:href="@{/recipe/all}"
+           class="btn rounded-5"
+           th:classappend="${selectedCategoryId} == null ? ' active' : ''">
+            Alle
+        </a>
+        <a th:each="category : ${allCategories}"
+           th:href="@{/recipe/all(categoryId=${category.categoryId})}"
+           th:text="${category.categoryName}"
+           class="btn rounded-5"
+           th:classappend="${selectedCategoryId == category.categoryId} ? ' active' : ''">
+        </a>
+    </div>
+</div>
+
+<div th:fragment="recipeCards(recipes)" class="row row-cols-1 row-cols-md-4 mt-5">
+    <div class="col mb-5" th:each="recipe : ${recipes}">
+        <div class="card h-100 border-0 d-flex flex-column bg-light">
+            <div class="card-body d-flex flex-column rounded">
+                <h4 th:text="${recipe.recipeName}" class="card-title"></h4>
+                <h6>Door: gebruiker</h6>
+                <div class="mt-auto">
+                    <a class="btn btn-primary rounded-5"
+                       th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}"
+                       role="button">Bekijk recept</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div th:fragment="recipeAdd(recipes)" class="col text-center">
+    <a class="btn btn-outline-primary rounded-5"
+       th:href="@{/recipe/add}" role="button">Voeg nieuw recept toe <i class="bi bi-plus-lg"></i></a>
+</div>
+
+
+
+
+</html>
