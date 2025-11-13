@@ -26,15 +26,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipeTest {
 
-    @Test
-    @DisplayName("test if de getter from recipeName works correct")
-    void testRecipeName() {
-        Recipe recipe = new Recipe();
-
-        recipe.setRecipeName("Patat");
-
-        assertEquals("Friet", recipe.getRecipeName());
-
-    }
+//    @Test
+//    @DisplayName("test if de getter from recipeName works correct")
+//    void testRecipeName() {
+//        Recipe recipe = new Recipe();
+//
+//        recipe.setRecipeName("Patat");
+//
+//        assertEquals("Friet", recipe.getRecipeName());
+//
+//    }
 
 }

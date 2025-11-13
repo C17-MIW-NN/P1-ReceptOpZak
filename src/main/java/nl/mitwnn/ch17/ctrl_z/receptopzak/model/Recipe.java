@@ -19,6 +19,10 @@ public class Recipe {
     @Column(unique = true)
     String recipeName;
 
+    private String description;
+
+    private String instructions;
+
     @ManyToOne
     private User user;
 
@@ -42,6 +46,22 @@ public class Recipe {
 
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public Set<Category> getCategories() {
