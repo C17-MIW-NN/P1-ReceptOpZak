@@ -15,6 +15,7 @@ public class Ingredient {
     private static final int KCAL_PER_GRAM_CARB = 4;
     private static final int KCAL_PER_GRAM_FAT = 9;
     private static final int KCAL_PER_GRAM_PROTEIN = 4;
+
     @Id @GeneratedValue
     private Long ingredientId;
 
@@ -69,9 +70,7 @@ public class Ingredient {
     }
 
     public void setIngredientKcal() {
-        int carb = ingredientCarb != null ? ingredientCarb : 0;
-        int fat = ingredientFat != null ? ingredientFat : 0;
-        int protein = ingredientProtein != null ? ingredientProtein : 0;
-        this.ingredientKcal = KCAL_PER_GRAM_CARB * carb + KCAL_PER_GRAM_FAT * fat + KCAL_PER_GRAM_PROTEIN * protein;
+        this.ingredientKcal = KCAL_PER_GRAM_CARB * ingredientCarb + KCAL_PER_GRAM_FAT * ingredientFat +
+                KCAL_PER_GRAM_PROTEIN * ingredientProtein;
     }
 }

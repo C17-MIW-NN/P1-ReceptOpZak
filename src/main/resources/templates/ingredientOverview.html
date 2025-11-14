@@ -12,7 +12,8 @@
 
 <div class="container mt-5">
 
-    <h2>Ingrediënten</h2>
+    <h2 class="mb-3">Ingrediënten</h2>
+    <h3 class="mb-3">Voedingswaarden per 100 gram</h3>
 
     <form th:action="@{/ingredient/save}" th:object="${formIngredients}" method="post" class="ingredientForm">
     <table class="ingredientTable">
@@ -22,7 +23,7 @@
             <th class="ingredientCell">Koolhydraten</th>
             <th class="ingredientCell">Vetten</th>
             <th class="ingredientCell">Eiwitten</th>
-            <th class="ingredientCell">Kcal per 100g</th>
+            <th class="ingredientCell">Kcal</th>
             <th class="ingredientCell"></th>
         </tr>
         </thead>
