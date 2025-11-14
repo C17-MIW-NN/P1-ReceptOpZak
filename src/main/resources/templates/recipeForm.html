@@ -17,6 +17,8 @@
     <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
     <legend>Voer hier het recept voor je gerecht in</legend>
 
+        <input type="hidden" th:field="*{recipeId}">
+
         <div class="mb-3">
             <label for="recipeName" class="form-label">Naam</label>
             <input type="text" id="recipeName" th:field="*{recipeName}" class="form-control"
