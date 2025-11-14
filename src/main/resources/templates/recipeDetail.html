@@ -15,9 +15,11 @@
     <h2 class="mb-3">Recept: <span th:text="${recipe.recipeName}">Receptnaam</span></h2>
 
 
-    <div class="mb-4">
-        <img src="https://via.placeholder.com/800x400?text=Recept+Afbeelding"
-             class="img-fluid rounded" alt="Recept afbeelding">
+    <div class="card h-100">
+        <img th:src="${recipe.imageURL}"
+             class="card-img-top object-fit-cover rounded"
+             style="height: 250px; object-fit: cover;"
+             th:alt="|Image for ${recipe.recipeName}|">
     </div>
 
     <div class="mb-5">

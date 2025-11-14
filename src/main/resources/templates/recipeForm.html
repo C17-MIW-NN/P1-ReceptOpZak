@@ -14,7 +14,7 @@
 
     <h2>Nieuw recept</h2>
 
-    <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
+    <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post" enctype="multipart/form-data">
     <legend>Voer hier het recept voor je gerecht in</legend>
 
         <input type="hidden" th:field="*{recipeId}">
@@ -24,6 +24,12 @@
             <input type="text" id="recipeName" th:field="*{recipeName}" class="form-control"
                    placeholder="Bijvoorbeeld: 'Mosterdsoep'" required>
         </div>
+
+            <div class="mb-3">
+                <label for="imageFile" class="form-label">Afbeelding recept:</label>
+                <input type="file" id="imageFile" name="recipeImage" accept="image/*">
+            </div>
+
 
         <div class="mb-3">
             <label for="user" class="form-label">Gebruiker (selecteer 1)</label>

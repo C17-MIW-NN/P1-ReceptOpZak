@@ -23,6 +23,8 @@ public class Recipe {
 
     private String instructions;
 
+    private String imageURL;
+
     @ManyToOne
     private User user;
 
@@ -31,6 +33,15 @@ public class Recipe {
 
     @ManyToMany
     private Set<Ingredient> ingredients;
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "recipeId=" + recipeId +
+                ", name='" + recipeName + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                '}';
+    }
 
     public Long getRecipeId() {
         return recipeId;
@@ -86,5 +97,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }
