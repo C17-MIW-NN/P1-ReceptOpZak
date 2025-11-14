@@ -41,14 +41,12 @@
 
     <div class="mb-4">
         <label class="form-label fw-bold">Ingrediënten</label>
-        <textarea class="form-control" rows="6" readonly>
-            <th:block th:each="ingredient : ${recipe.ingredients}">
-                <span th:text="${ingredient.ingredientName}">Ingredient</span>
-                <br/>
-            </th:block>
-        </textarea>
+        <div class="border rounded p-3 bg-light">
+            <ul class="mb-0">
+                <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.ingredientName}">Ingredient</li>
+            </ul>
+        </div>
     </div>
-
 
     <div class="mb-4">
         <label class="form-label fw-bold">Bereidingswijze</label>
