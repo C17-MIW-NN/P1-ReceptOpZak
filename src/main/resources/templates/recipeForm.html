@@ -26,6 +26,14 @@
         </div>
 
         <div class="mb-3">
+            <label for="recipeDescription" class="form-label">Geef een beschrijving van dit recept</label>
+            <textarea id="recipeDescription" class="form-control auto-expand" rows="1"
+                      placeholder="Bijvoorbeeld: 'Een heerlijk lunch recept met brood en ei'" required
+                      oninput="autoResize(this)" th:field="*{description}"></textarea>
+
+        </div>
+
+        <div class="mb-3">
             <label for="user" class="form-label">Gebruiker (selecteer 1)</label>
             <select id="user" class="form-select" th:field="*{user}" required>
                 <option th:each="user : ${allUsers}"

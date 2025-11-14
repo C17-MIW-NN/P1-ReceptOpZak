@@ -23,7 +23,8 @@
     <div class="mb-5">
         <h4>Categorieën</h4>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="category : ${recipe.categories}" th:text="${category.categoryName}">Categorie</li>
+            <li class="list-group-item" th:each="category : ${recipe.categories}"
+                th:text="${category.categoryName}">Categorie</li>
         </ul>
     </div>
 
@@ -34,8 +35,15 @@
 
 
     <div class="mb-4">
+        <style>
+            textarea.auto-expand {
+                resize: none;
+                overflow: hidden;
+            }
+        </style>
         <label class="form-label fw-bold">Beschrijving</label>
-        <textarea class="form-control" rows="3" readonly th:text="${recipe.description}">Beschrijving van het recept</textarea>
+        <textarea class="form-control auto-expand" rows="2"
+                  readonly th:text="${recipe.description}">Beschrijving van het recept</textarea>
     </div>
 
 
