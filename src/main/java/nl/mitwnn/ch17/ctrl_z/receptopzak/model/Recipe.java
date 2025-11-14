@@ -32,6 +32,9 @@ public class Recipe {
     @ManyToMany
     private Set<Ingredient> ingredients;
 
+    @Transient
+    private Ingredient newIngredient;
+
     public Long getRecipeId() {
         return recipeId;
     }
@@ -87,4 +90,9 @@ public class Recipe {
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    public Ingredient getNewIngredient() { return newIngredient; }
+
+    public void setNewIngredient(Ingredient newIngredient) { this.newIngredient = newIngredient; }
+
 }

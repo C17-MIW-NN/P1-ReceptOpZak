@@ -15,7 +15,7 @@
     <h2>Nieuw recept</h2>
 
     <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
-    <legend>Voer hier het recept voor je gerecht in</legend>
+    <h4>Voer hier het recept voor je gerecht in</h4>
 
         <input type="hidden" th:field="*{recipeId}">
 
@@ -54,16 +54,33 @@
         </div>
 
         <div class="mb-3">
-            <label for="ingredients" class="form-label">Ingrediënten (meerdere opties mogelijk)</label>
-            <select id="ingredients" class="form-select" th:field="*{ingredients}" multiple required>
+            <label for="ingredients" class="form-label">Jouw ingrediënten</label>
+            <select id="ingredients" class="form-select" th:field="*{ingredients}" multiple>
                 <option th:each="ingredient : ${allIngredients}"
-                        th:text="${ingredient.ingredientName}"
-                        th:value="${ingredient.ingredientId}">
+                        th:value="${ingredient.ingredientId}"
+                        th:text="${ingredient.ingredientName}">
                 </option>
             </select>
         </div>
 
+        <div class="mb-3">
+            <h4>Nieuw ingrediënt toevoegen</h4>
+            <label for="newIngredientName" class="form-label">Nieuw ingrediënt naam</label>
+            <input type="text" id="newIngredientName" class="form-control"
+                   th:field="*{newIngredient.ingredientName}">
+            <label for="newIngredientCarb" class="form-label">Nieuw ingrediënt koolhydraten</label>
+            <input type="number" id="newIngredientCarb" class="form-control mt-2"
+                   th:field="*{newIngredient.ingredientCarb}">
+            <label for="newIngredientFat" class="form-label">Nieuw ingrediënt vetten per 100g</label>
+            <input type="number" id="newIngredientFat" class="form-control mt-2"
+                   th:field="*{newIngredient.ingredientFat}">
+            <label for="newIngredientProtein" class="form-label">Nieuw ingrediënt eiwitten per 100g</label>
+            <input type="number" id="newIngredientProtein" class="form-control mt-2"
+                   th:field="*{newIngredient.ingredientProtein}">
+        </div>
+
         <button type="submit" class="btn btn-primary">Opslaan</button>
+
     </form>
 
 </div>

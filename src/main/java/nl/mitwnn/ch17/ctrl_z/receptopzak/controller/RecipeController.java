@@ -1,5 +1,6 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.CategoryRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashSet;
 import java.util.Optional;
 
 /**
@@ -73,6 +76,7 @@ public class RecipeController {
         datamodel.addAttribute("allUsers", userRepository.findAll());
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
+        datamodel.addAttribute("formIngredient", new Ingredient());
 
         return "recipeForm";
     }
@@ -112,6 +116,22 @@ public class RecipeController {
 
         if (result.hasErrors()) {
             return showForm(datamodel, recipeSave);
+        }
+
+        Ingredient newIngredient = recipeSave.getNewIngredient();
+
+        boolean hasNewIngredient = newIngredient != null && newIngredient.getIngredientName() != null &&
+                !newIngredient.getIngredientName().isBlank();
+
+        if (hasNewIngredient) {
+            newIngredient.setIngredientKcal();
+            Ingredient savedIngredient = ingredientRepository.save(newIngredient);
+
+            if (recipeSave.getIngredients() == null) {
+                recipeSave.setIngredients(new HashSet<>());
+            }
+
+            recipeSave.getIngredients().add(savedIngredient);
         }
 
         recipeRepository.save(recipeSave);
