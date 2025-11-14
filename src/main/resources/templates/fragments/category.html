@@ -26,7 +26,8 @@
             <label for="categoryName" class="col-form-label">Naam: </label>
         </div>
         <div class="col-auto">
-            <input type="text" id="categoryName" th:field="*{categoryName}" class="form-control rounded-5" placeholder="Nieuwe categorie">
+            <input type="text" id="categoryName" th:field="*{categoryName}" class="form-control rounded-5"
+                   placeholder="Nieuwe categorie" required>
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary rounded-5">Voeg categorie toe</button>

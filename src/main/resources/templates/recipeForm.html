@@ -20,12 +20,12 @@
         <div class="mb-3">
             <label for="recipeName" class="form-label">Naam</label>
             <input type="text" id="recipeName" th:field="*{recipeName}" class="form-control"
-                   placeholder="Bijvoorbeeld: 'Mosterdsoep'">
+                   placeholder="Bijvoorbeeld: 'Mosterdsoep'" required>
         </div>
 
         <div class="mb-3">
             <label for="user" class="form-label">Gebruiker (selecteer 1)</label>
-            <select id="user" class="form-select" th:field="*{user}">
+            <select id="user" class="form-select" th:field="*{user}" required>
                 <option th:each="user : ${allUsers}"
                         th:text="${user.userName}"
                         th:value="${user.userId}">
@@ -35,7 +35,7 @@
 
         <div class="mb-3">
             <label for="categories" class="form-label">Categorie (meerdere opties mogelijk)</label>
-            <select id="categories" class="form-select" th:field="*{categories}" multiple>
+            <select id="categories" class="form-select" th:field="*{categories}" multiple required>
                 <option th:each="category : ${allCategories}"
                         th:text="${category.categoryName}"
                         th:value="${category.categoryId}">
@@ -45,7 +45,7 @@
 
         <div class="mb-3">
             <label for="ingredients" class="form-label">Ingrediënten (meerdere opties mogelijk)</label>
-            <select id="ingredients" class="form-select" th:field="*{ingredients}" multiple>
+            <select id="ingredients" class="form-select" th:field="*{ingredients}" multiple required>
                 <option th:each="ingredient : ${allIngredients}"
                         th:text="${ingredient.ingredientName}"
                         th:value="${ingredient.ingredientId}">
