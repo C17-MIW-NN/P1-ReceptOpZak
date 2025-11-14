@@ -16,11 +16,23 @@
 
     <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
     <legend>Voer hier het recept voor je gerecht in</legend>
+
         <div class="mb-3">
             <label for="recipeName" class="form-label">Naam</label>
             <input type="text" id="recipeName" th:field="*{recipeName}" class="form-control"
                    placeholder="Bijvoorbeeld: 'Mosterdsoep'">
         </div>
+
+        <div class="mb-3">
+            <label for="user" class="form-label">Gebruiker (selecteer 1)</label>
+            <select id="user" class="form-select" th:field="*{user}">
+                <option th:each="user : ${allUsers}"
+                        th:text="${user.userName}"
+                        th:value="${user.userId}">
+                </option>
+            </select>
+        </div>
+
         <div class="mb-3">
             <label for="categories" class="form-label">Categorie (meerdere opties mogelijk)</label>
             <select id="categories" class="form-select" th:field="*{categories}" multiple>
@@ -30,6 +42,7 @@
                 </option>
             </select>
         </div>
+
         <div class="mb-3">
             <label for="ingredients" class="form-label">Ingrediënten (meerdere opties mogelijk)</label>
             <select id="ingredients" class="form-select" th:field="*{ingredients}" multiple>
@@ -39,6 +52,7 @@
                 </option>
             </select>
         </div>
+
         <button type="submit" class="btn btn-primary">Opslaan</button>
     </form>
 

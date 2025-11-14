@@ -4,6 +4,7 @@ import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.CategoryRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,11 +23,13 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
     private final IngredientRepository ingredientRepository;
+    private final UserRepository userRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository) {
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, UserRepository userRepository) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
+        this.userRepository = userRepository;
     }
 
     // Show recipes
@@ -67,6 +70,7 @@ public class RecipeController {
 
     private String showForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
+        datamodel.addAttribute("allUsers", userRepository.findAll());
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
 
