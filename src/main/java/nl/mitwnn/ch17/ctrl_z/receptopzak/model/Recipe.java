@@ -34,6 +34,9 @@ public class Recipe {
     @ManyToMany
     private Set<Ingredient> ingredients;
 
+    @Transient
+    private Ingredient newIngredient;
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -106,4 +109,9 @@ public class Recipe {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+
+    public Ingredient getNewIngredient() { return newIngredient; }
+
+    public void setNewIngredient(Ingredient newIngredient) { this.newIngredient = newIngredient; }
+
 }

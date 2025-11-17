@@ -15,6 +15,9 @@ public class Ingredient {
     private static final int KCAL_PER_GRAM_CARB = 4;
     private static final int KCAL_PER_GRAM_FAT = 9;
     private static final int KCAL_PER_GRAM_PROTEIN = 4;
+    private static final int DEFAULT_CARB = 0;
+    private static final int DEFAULT_FAT = 0;
+    private static final int DEFAULT_PROTEIN = 0;
 
     @Id @GeneratedValue
     private Long ingredientId;
@@ -24,6 +27,26 @@ public class Ingredient {
     private Integer ingredientFat;
     private Integer ingredientProtein;
     private Integer ingredientKcal;
+
+
+    public Ingredient(String name, int carb, int fat, int protein) {
+        this.ingredientName = name;
+        this.ingredientCarb = carb;
+        this.ingredientFat = fat;
+        this.ingredientProtein = protein;
+        setIngredientKcal();
+    }
+
+    public Ingredient(String ingredientName) {
+        this.ingredientName = ingredientName;
+        this.ingredientCarb = DEFAULT_CARB;
+        this.ingredientFat = DEFAULT_FAT;
+        this.ingredientProtein = DEFAULT_PROTEIN;
+        setIngredientKcal();
+    }
+
+    public Ingredient() {
+    }
 
     public Long getIngredientId() {
         return ingredientId;

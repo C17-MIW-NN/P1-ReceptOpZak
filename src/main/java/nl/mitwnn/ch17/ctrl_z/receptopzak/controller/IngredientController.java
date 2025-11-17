@@ -44,9 +44,8 @@ public class IngredientController {
             return "redirect:/ingredient/all";
         }
 
-        ingredient.setIngredientKcal();
         ingredientRepository.save(ingredient);
-        return "redirect:/ingredient/all";
+        return "redirect:/recipe/add";
     }
 
     // Delete ingredients
