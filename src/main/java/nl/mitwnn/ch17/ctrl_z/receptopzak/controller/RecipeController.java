@@ -1,11 +1,9 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Instruction;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.CategoryRepository;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.UserRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.*;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.service.ImageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,13 +30,17 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
     private final IngredientRepository ingredientRepository;
+    private final InstructionRepository instructionRepository;
     private final UserRepository userRepository;
     private final ImageService imageService;
 
-    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, UserRepository userRepository, ImageService imageService) {
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository,
+                            IngredientRepository ingredientRepository, InstructionRepository instructionRepository,
+                            UserRepository userRepository, ImageService imageService) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
+        this.instructionRepository = instructionRepository;
         this.userRepository = userRepository;
         this.imageService = imageService;
     }
@@ -106,7 +110,9 @@ public class RecipeController {
     // Save recipes
     @PostMapping("/recipe/save")
     public String saveOrUpdateRecipe(@ModelAttribute("formRecipe") Recipe recipeSave,
-                                     BindingResult result, Model datamodel, @RequestParam MultipartFile recipeImage) {
+                                     BindingResult result, Model datamodel, @RequestParam MultipartFile recipeImage,
+                                     @RequestParam("instructionTexts")List<String> instructionTexts) {
+
 
         try {
             imageService.saveImage(recipeImage);
@@ -147,7 +153,29 @@ public class RecipeController {
             recipeSave.getIngredients().add(savedIngredient);
         }
 
-        recipeRepository.save(recipeSave);
+        Recipe savedRecipe = recipeRepository.save(recipeSave);
+
+
+        instructionRepository.deleteAll(savedRecipe.getInstructions());
+
+
+        List<Instruction> instructions = new ArrayList<>();
+
+        for (int i = 0; i < instructionTexts.size(); i++) {
+            String text = instructionTexts.get(i);
+            if (!text.isBlank()) {
+                Instruction instruction = new Instruction();
+                instruction.setStepNumber(i + 1);
+                instruction.setText(text);
+                instruction.setRecipe(savedRecipe);
+                instructions.add(instruction);
+            }
+        }
+
+        instructionRepository.saveAll(instructions);
+        savedRecipe.setInstructions(instructions);
+
+
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
     }
 
