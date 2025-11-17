@@ -66,8 +66,17 @@ public class RecipeController {
     // Add recipes
     @GetMapping("/recipe/add")
     public String showRecipeForm(Model datamodel) {
-        return showForm(datamodel, new Recipe());
+        Recipe newRecipe = new Recipe();
+        List<Instruction> emptySteps = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            emptySteps.add(new Instruction());
+        }
+        newRecipe.setInstructions(emptySteps);
+
+        return showForm(datamodel, newRecipe);
     }
+
+
 
     // Edit recipes
     @GetMapping("/recipe/edit/{recipeName}")
@@ -87,6 +96,7 @@ public class RecipeController {
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
         datamodel.addAttribute("formIngredient", new Ingredient());
+        datamodel.addAttribute("formInstructions", new Instruction());
 
         return "recipeForm";
     }

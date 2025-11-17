@@ -85,6 +85,15 @@
                    th:field="*{newIngredient.ingredientProtein}">
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Instructies</label>
+            <div th:each="instruction, stat : ${formRecipe.instructions}">
+        <textarea class="form-control auto-expand" name="instructionTexts"
+                  th:placeholder="'Stap ' + ${stat.index + 1}" rows="1"
+                  th:text="${instruction.text}"></textarea>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Opslaan</button>
 
     </form>
