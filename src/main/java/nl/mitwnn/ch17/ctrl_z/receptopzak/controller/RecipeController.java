@@ -109,16 +109,7 @@ public class RecipeController {
                                      BindingResult result, Model datamodel,
                                      @RequestParam(value = "recipeImage", required = false) MultipartFile recipeImage) {
 
-        try {
-            if (recipeImage != null && !recipeImage.isEmpty()) {
-                imageService.saveImage(recipeImage);
-                recipeSave.setImageURL("/images/" + recipeImage.getOriginalFilename());
-            } else {
-                recipeSave.setImageURL("/images/defaultRecipe.png");
-            }
-        } catch (IOException imageError) {
-            result.rejectValue("recipeImage", "imageNotSaved", "Image not saved");
-        }
+        saveRecipeImage(recipeSave, result, recipeImage);
 
         if (result.hasErrors()) {
             return "redirect:/recipe/all";
@@ -145,6 +136,19 @@ public class RecipeController {
 
         recipeRepository.save(recipeSave);
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
+    }
+
+    private void saveRecipeImage(Recipe recipeSave, BindingResult result, MultipartFile recipeImage) {
+        try {
+            if (recipeImage != null && !recipeImage.isEmpty()) {
+                imageService.saveImage(recipeImage);
+                recipeSave.setImageURL("/image/" + recipeImage.getOriginalFilename());
+            } else {
+                recipeSave.setImageURL("/images/defaultRecipe.png");
+            }
+        } catch (IOException imageError) {
+            result.rejectValue("recipeImage", "imageNotSaved", "Image not saved");
+        }
     }
 
     private String validateRecipeTitle(Recipe recipeSave, BindingResult result, Model datamodel) {
