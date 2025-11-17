@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Sybren Bonnema
- * Define characterists for the Author class
+ * Define characterists for the User class
  */
 
 @Entity

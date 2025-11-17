@@ -67,12 +67,7 @@ public class RecipeController {
     @GetMapping("/recipe/add")
     public String showRecipeForm(Model datamodel) {
         Recipe newRecipe = new Recipe();
-        List<Instruction> emptySteps = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            emptySteps.add(new Instruction());
-        }
-        newRecipe.setInstructions(emptySteps);
-
+        newRecipe.setInstructions(new ArrayList<>());
         return showForm(datamodel, newRecipe);
     }
 
@@ -184,7 +179,6 @@ public class RecipeController {
 
         instructionRepository.saveAll(instructions);
         savedRecipe.setInstructions(instructions);
-
 
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
     }

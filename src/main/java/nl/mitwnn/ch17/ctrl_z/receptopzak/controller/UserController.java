@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * @author Sybren Bonnema
- * Helps the program store and display users
+ * Helps the program store, edit, delete and display users on the webpage
  */
 
 @Controller

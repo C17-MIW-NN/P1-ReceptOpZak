@@ -87,12 +87,15 @@
 
         <div class="mb-3">
             <label class="form-label">Instructies</label>
-            <div th:each="instruction, stat : ${formRecipe.instructions}">
-        <textarea class="form-control auto-expand" name="instructionTexts"
-                  th:placeholder="'Stap ' + ${stat.index + 1}" rows="1"
-                  th:text="${instruction.text}"></textarea>
+            <div id="instructionContainer">
+                <div class="instruction-step">
+            <textarea class="form-control auto-expand" name="instructionTexts"
+                      placeholder="Stap 1" rows="1" oninput="autoResize(this)"></textarea>
+                </div>
             </div>
+            <button type="button" class="btn btn-secondary mt-2" onclick="addInstruction()">+ Voeg stap toe</button>
         </div>
+
 
         <button type="submit" class="btn btn-primary">Opslaan</button>
 

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 /**
  * @author Sybren Bonnema
- * Class for defining and implementing repice instructions functionality.
+ * Class for defining and implementing recipe instructions functionality.
  */
 
 @Entity
