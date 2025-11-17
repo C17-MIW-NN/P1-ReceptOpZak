@@ -16,7 +16,7 @@
 
 
     <div class="card h-100">
-        <img th:src="${recipe.imageURL}"
+        <img th:src="${recipe.imageURL} ?: '/images/defaultRecipe.png'"
              class="card-img-top object-fit-cover rounded"
              style="height: 250px; object-fit: cover;"
              th:alt="|Image for ${recipe.recipeName}|">

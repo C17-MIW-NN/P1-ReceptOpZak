@@ -106,11 +106,16 @@ public class RecipeController {
     // Save recipes
     @PostMapping("/recipe/save")
     public String saveOrUpdateRecipe(@ModelAttribute("formRecipe") Recipe recipeSave,
-                                     BindingResult result, Model datamodel, @RequestParam MultipartFile recipeImage) {
+                                     BindingResult result, Model datamodel,
+                                     @RequestParam(value = "recipeImage", required = false) MultipartFile recipeImage) {
 
         try {
-            imageService.saveImage(recipeImage);
-            recipeSave.setImageURL("/image/" + recipeImage.getOriginalFilename());
+            if (recipeImage != null && !recipeImage.isEmpty()) {
+                imageService.saveImage(recipeImage);
+                recipeSave.setImageURL("/images/" + recipeImage.getOriginalFilename());
+            } else {
+                recipeSave.setImageURL("/images/defaultRecipe.png");
+            }
         } catch (IOException imageError) {
             result.rejectValue("recipeImage", "imageNotSaved", "Image not saved");
         }
@@ -119,17 +124,8 @@ public class RecipeController {
             return "redirect:/recipe/all";
         }
 
-        Optional<Recipe> recipeWithSameTitle = recipeRepository.findByRecipeName(recipeSave.getRecipeName());
-
-        if (recipeWithSameTitle.isPresent() && !recipeWithSameTitle.get().getRecipeId().equals(recipeSave.getRecipeId()
-        )) {
-            result.addError(new FieldError("recipe", "recipeName",
-                    "this title is already used"));
-        }
-
-        if (result.hasErrors()) {
-            return showForm(datamodel, recipeSave);
-        }
+        String validationResult = validateRecipeTitle(recipeSave, result, datamodel);
+        if (validationResult != null) return validationResult;
 
         Ingredient newIngredient = recipeSave.getNewIngredient();
 
@@ -149,6 +145,21 @@ public class RecipeController {
 
         recipeRepository.save(recipeSave);
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
+    }
+
+    private String validateRecipeTitle(Recipe recipeSave, BindingResult result, Model datamodel) {
+        Optional<Recipe> recipeWithSameTitle = recipeRepository.findByRecipeName(recipeSave.getRecipeName());
+
+        if (recipeWithSameTitle.isPresent() && !recipeWithSameTitle.get().getRecipeId().equals(recipeSave.getRecipeId()
+        )) {
+            result.addError(new FieldError("formRecipe", "recipeNaam",
+                    "this title is already used"));
+        }
+
+        if (result.hasErrors()) {
+            return showForm(datamodel, recipeSave);
+        }
+        return null;
     }
 
     // Delete recipes
