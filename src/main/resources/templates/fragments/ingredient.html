@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!---/**
+ * @author Pelle Meuzelaar
+ * Here is the code for the fragments for in the ingredient page
+ */
+ -->
+
+<div th:fragment="ingredientsTable(allIngredients)">
+
+<form th:action="@{/ingredient/save}" th:object="${formIngredients}" method="post" class="ingredientForm">
+    <table class="ingredientTable">
+        <thead class="ingredientTableHeader">
+        <tr class="tableRow">
+            <th class="ingredientCell">Naam</th>
+            <th class="ingredientCell">Koolhydraten</th>
+            <th class="ingredientCell">Vetten</th>
+            <th class="ingredientCell">Eiwitten</th>
+            <th class="ingredientCell">Kcal</th>
+            <th class="ingredientCell"></th>
+        </tr>
+        </thead>
+        <tbody class="ingredientTableBody">
+        <tr th:each="ingredient : ${allIngredients}" class="tableRow">
+            <td th:text="${ingredient.ingredientName}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientCarb}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientFat}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientProtein}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientKcal}" class="ingredientCell"></td>
+            <td class="deleteButton">
+                <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}"
+                   class="btn btn-danger btn-sm rounded-5">
+                    Verwijder
+                </a>
+            </td>
+        </tr>
+        <tr class="tableRow">
+            <td>
+                <label for="IngredientName"></label>
+                <input type="text" id="IngredientName" class="ingredientInput" th:field="*{ingredientName}">
+            </td>
+            <td>
+                <label for="IngredientCarb"></label>
+                <input type="number" id="IngredientCarb" class="ingredientInput" th:field="*{ingredientCarb}">
+            </td>
+            <td>
+                <label for="IngredientFat"></label>
+                <input type="number" id="IngredientFat" class="ingredientInput" th:field="*{ingredientFat}">
+            </td>
+            <td>
+                <label for="IngredientProtein"></label>
+                <input type="number" id="IngredientProtein" class="ingredientInput" th:field="*{ingredientProtein}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+</div>
+
+</html>

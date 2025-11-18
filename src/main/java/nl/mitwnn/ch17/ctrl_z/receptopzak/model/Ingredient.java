@@ -1,8 +1,7 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 
 /**
  * @author Pelle Meuzelaar
@@ -22,12 +21,16 @@ public class Ingredient {
     @Id @GeneratedValue
     private Long ingredientId;
 
+    @Column(unique = true)
+
     private String ingredientName;
     private Integer ingredientCarb;
     private Integer ingredientFat;
     private Integer ingredientProtein;
     private Integer ingredientKcal;
 
+    @OneToMany(mappedBy = "ingredient")
+    private List<RecipeIngredient> recipeIngredients;
 
     public Ingredient(String name, int carb, int fat, int protein) {
         this.ingredientName = name;

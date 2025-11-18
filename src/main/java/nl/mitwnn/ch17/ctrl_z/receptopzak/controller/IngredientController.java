@@ -6,14 +6,13 @@ import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 /**
  * @author Pelle Meuzelaar
- * Purpose for the class
+ * Handles requests regarding ingredients
  */
 
 @Controller
@@ -37,17 +36,6 @@ public class IngredientController {
         return "ingredientOverview";
     }
 
-    // Save ingredients
-    @PostMapping("/save")
-    public String saveOrUpdateIngredient(@ModelAttribute("formIngredient") Ingredient ingredient, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/ingredient/all";
-        }
-
-        ingredientRepository.save(ingredient);
-        return "redirect:/recipe/add";
-    }
-
     // Delete ingredients
     @GetMapping("/delete/{ingredientId}")
     public String deleteIngredient(@PathVariable("ingredientId") Long ingredientId) {
@@ -57,7 +45,7 @@ public class IngredientController {
             Ingredient ingredient = optionalIngredient.get();
 
             for (Recipe recipe : recipeRepository.findAll()) {
-                recipe.getIngredients().remove(ingredient);
+                recipe.getRecipeIngredients().remove(ingredient);
                 recipeRepository.save(recipe);
             }
 

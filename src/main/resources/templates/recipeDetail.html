@@ -53,7 +53,7 @@
         <label class="form-label fw-bold">Ingrediënten</label>
         <div class="border rounded p-3 bg-light">
             <ul class="mb-0">
-                <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.ingredientName}">Ingredient</li>
+                <li th:each="ingredient : ${recipe.recipeIngredients}" th:text="${ingredient.ingredientName}">Ingredient</li>
             </ul>
         </div>
     </div>

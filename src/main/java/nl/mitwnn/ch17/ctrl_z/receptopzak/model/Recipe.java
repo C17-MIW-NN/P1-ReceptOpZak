@@ -31,11 +31,11 @@ public class Recipe {
     @ManyToMany
     private Set<Category> categories;
 
-    @ManyToMany
-    private Set<Ingredient> ingredients;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RecipeIngredient> recipeIngredients;
 
-    @Transient
-    private Ingredient newIngredient;
+//    @Transient
+//    private Ingredient newIngredient;
 
     @Override
     public String toString() {
@@ -94,12 +94,12 @@ public class Recipe {
         this.user = user;
     }
 
-    public Set<Ingredient> getIngredients() {
-        return ingredients;
+    public Set<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
     }
 
     public String getImageURL() {
@@ -110,8 +110,8 @@ public class Recipe {
         this.imageURL = imageURL;
     }
 
-    public Ingredient getNewIngredient() { return newIngredient; }
-
-    public void setNewIngredient(Ingredient newIngredient) { this.newIngredient = newIngredient; }
+//    public Ingredient getNewIngredient() { return newIngredient; }
+//
+//    public void setNewIngredient(Ingredient newIngredient) { this.newIngredient = newIngredient; }
 
 }
