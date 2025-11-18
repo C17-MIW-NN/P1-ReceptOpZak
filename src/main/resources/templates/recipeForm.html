@@ -88,9 +88,14 @@
         <div class="mb-3">
             <label class="form-label">Instructies</label>
             <div id="instructionContainer">
-                <div class="instruction-step">
+                <div th:each="instruction, stat : ${formRecipe.instructions}" class="instruction-step mb-2">
+                    <div class="input-group">
             <textarea class="form-control auto-expand" name="instructionTexts"
-                      placeholder="Stap 1" rows="1" oninput="autoResize(this)"></textarea>
+                      th:placeholder="'Stap ' + ${stat.index + 1}"
+                      th:text="${instruction.text}" rows="1"
+                      oninput="autoResize(this)"></textarea>
+                        <button type="button" class="btn btn-outline-danger" onclick="this.closest('.instruction-step').remove(); updatePlaceholders();">✕</button>
+                    </div>
                 </div>
             </div>
             <button type="button" class="btn btn-secondary mt-2" onclick="addInstruction()">+ Voeg stap toe</button>
