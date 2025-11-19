@@ -1,11 +1,5 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak;
 
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.User;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Sybren Bonnema
  * Testing elements of the User class

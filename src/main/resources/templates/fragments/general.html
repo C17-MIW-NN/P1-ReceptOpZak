@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head th:fragment="baseheader(title)">
     <meta charset="UTF-8">
@@ -22,12 +22,17 @@
                     <a class="nav-link" th:href="@{/category/all}">Categorieën</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/all}">Gebruikers</a>
+                    <a class="nav-link" th:href="@{/recipeUser/all}">Gebruikers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/ingredient/all}">Ingrediënten</a>
                 </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout <span sec:authentication="name"></span></a>
             </ul>
+
         </div>
     </nav>
 </div>

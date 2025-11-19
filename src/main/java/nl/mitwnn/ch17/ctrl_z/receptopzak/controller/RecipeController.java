@@ -29,14 +29,14 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
     private final IngredientRepository ingredientRepository;
-    private final UserRepository userRepository;
+    private final RecipeUserRepository recipeUserRepository;
     private final ImageService imageService;
 
-    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, UserRepository userRepository, ImageService imageService) {
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, RecipeUserRepository recipeUserRepository, ImageService imageService) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
-        this.userRepository = userRepository;
+        this.recipeUserRepository = recipeUserRepository;
         this.imageService = imageService;
     }
 
@@ -77,7 +77,7 @@ public class RecipeController {
 
     private String showForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
-        datamodel.addAttribute("allUsers", userRepository.findAll());
+        datamodel.addAttribute("allUsers", recipeUserRepository.findAll());
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
         datamodel.addAttribute("formIngredient", new Ingredient());

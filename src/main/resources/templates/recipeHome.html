@@ -12,8 +12,6 @@
 
 <div class="container mt-5">
 
-
-
     <h2>Alle recepten</h2>
 
     <div th:replace="~{fragments/recipe.html :: categoryButton(${allCategories})}"></div>
@@ -21,6 +19,8 @@
     <div th:replace="~{fragments/recipe.html :: recipeAdd(${recipes})}"></div>
 
     <div th:replace="~{fragments/recipe.html :: recipeCards(${recipes})}"></div>
+
+
 
 
 </div>

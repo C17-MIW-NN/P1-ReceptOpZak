@@ -42,7 +42,7 @@
                        role="button"></a>
                 </div>
 
-                <h6 class="text-muted mb-3 card-subtitle">Door: <span th:text="${recipe.user.userName}"></span></h6>
+                <h6 class="text-muted mb-3 card-subtitle">Door: <span th:text="${recipe.recipeUser.userName}"></span></h6>
                 <div class="mt-auto">
                     <a class="btn btn-primary rounded-5"
                        th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}"
