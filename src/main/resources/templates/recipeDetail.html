@@ -71,7 +71,9 @@
 
     <div class="mb-4">
         <label class="form-label fw-bold">Bereidingswijze</label>
-        <textarea class="form-control" rows="8" readonly th:text="${recipe.instructions}">Stap voor stap instructie</textarea>
+        <div th:each="instruction : ${recipe.instructions}">
+            <p><strong>Stap [[${instruction.stepNumber}]]:</strong> [[${instruction.text}]]</p>
+        </div>
     </div>
 
 

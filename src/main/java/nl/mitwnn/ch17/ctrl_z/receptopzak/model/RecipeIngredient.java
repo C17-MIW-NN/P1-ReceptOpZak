@@ -18,7 +18,8 @@ public class RecipeIngredient {
     @ManyToOne
     private Recipe recipe;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id", nullable = false)
     private Ingredient ingredient;
 
     public Long getId() {

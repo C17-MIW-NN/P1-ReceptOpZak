@@ -2,6 +2,7 @@ package nl.mitwnn.ch17.ctrl_z.receptopzak.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +23,6 @@ public class Recipe {
 
     private String description;
 
-    private String instructions;
-
     private String imageURL;
 
     @ManyToOne
@@ -35,8 +34,8 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredients;
 
-//    @Transient
-//    private Ingredient newIngredient;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Instruction> instructions = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -71,11 +70,11 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getInstructions() {
+    public List<Instruction> getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(String instructions) {
+    public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
     }
 
@@ -102,7 +101,6 @@ public class Recipe {
     public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
-
     public String getImageURL() {
         return imageURL;
     }
@@ -110,9 +108,5 @@ public class Recipe {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
-
-//    public Ingredient getNewIngredient() { return newIngredient; }
-//
-//    public void setNewIngredient(Ingredient newIngredient) { this.newIngredient = newIngredient; }
 
 }

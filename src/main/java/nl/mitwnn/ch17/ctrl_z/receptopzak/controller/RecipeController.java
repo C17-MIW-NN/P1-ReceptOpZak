@@ -1,6 +1,7 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Instruction;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeIngredient;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.*;
@@ -31,13 +32,19 @@ public class RecipeController {
     private final IngredientRepository ingredientRepository;
     private final UserRepository userRepository;
     private final ImageService imageService;
+    private final InstructionRepository instructionRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, UserRepository userRepository, ImageService imageService) {
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository,
+                            IngredientRepository ingredientRepository,
+                            RecipeIngredientRepository recipeIngredientRepository,
+                            UserRepository userRepository, ImageService imageService,
+                            InstructionRepository instructionRepository) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
         this.userRepository = userRepository;
         this.imageService = imageService;
+        this.instructionRepository = instructionRepository;
     }
 
     // Show recipes
@@ -104,8 +111,10 @@ public class RecipeController {
     // Save recipes
     @PostMapping("/recipe/save")
     public String saveOrUpdateRecipe(@ModelAttribute("formRecipe") Recipe recipeSave,
-                                     @RequestParam(value = "ingredientNames[]", required = false) List<String> ingredientNames,
+                                     @RequestParam(value = "ingredientNames[]", required = false)
+                                     List<String> ingredientNames,
                                      @RequestParam(value = "quantities[]", required = false) List<Integer> quantities,
+                                     @RequestParam(value = "instructionTexts", required = false) List<String> instructionTexts,
                                      BindingResult result, Model datamodel,
                                      @RequestParam(value = "recipeImage", required = false) MultipartFile recipeImage) {
 
@@ -117,8 +126,6 @@ public class RecipeController {
 
         String validationResult = validateRecipeTitle(recipeSave, result, datamodel);
         if (validationResult != null) return validationResult;
-
-        saveRecipeImage(recipeSave, result, recipeImage);
 
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
@@ -144,13 +151,34 @@ public class RecipeController {
 
             recipeIngredient.setQuantity(quantity);
             recipeIngredient.setRecipe(recipeSave);
-
             recipeIngredients.add(recipeIngredient);
         }
 
         recipeSave.setRecipeIngredients(recipeIngredients);
 
         recipeRepository.save(recipeSave);
+        instructionRepository.deleteAll(recipeSave.getInstructions());
+
+        List<Instruction> instructions = new ArrayList<>();
+
+        if (instructionTexts != null) {
+            for (int i = 0; i < instructionTexts.size(); i++) {
+                String text = instructionTexts.get(i);
+                if (!text.isBlank()) {
+                    Instruction instruction = new Instruction();
+                    instruction.setStepNumber(i + 1);
+                    instruction.setText(text);
+                    instruction.setRecipe(recipeSave);
+                    instructions.add(instruction);
+                }
+            }
+        }
+
+        instructionRepository.saveAll(instructions);
+        recipeSave.getInstructions().clear();
+        recipeSave.getInstructions().addAll(instructions);
+        recipeRepository.save(recipeSave);
+
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
     }
 
