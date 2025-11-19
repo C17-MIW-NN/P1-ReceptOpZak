@@ -12,7 +12,7 @@
 
 <div class="container mt-5">
     <h2>Gebruikers</h2>
-    <form th:action="@{/user/save}" th:object="${user}" method="post">
+    <form th:action="@{/recipeUser/save}" th:object="${recipeUser}" method="post">
         <input type="hidden" th:field="*{userId}" />
         <div class="mb-3">
             <label for="userName">Naam</label>

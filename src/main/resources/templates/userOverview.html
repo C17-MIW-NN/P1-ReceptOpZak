@@ -8,38 +8,56 @@
 
 <body>
 
+
+
 <div th:replace="~{fragments/general :: navBar}"></div>
 
-<div class="container mt-5">
+<!--<div class="container mt-5">-->
 
-    <h2>Gebruikers overzicht</h2>
+<!--    <h2>Gebruikers overzicht</h2>-->
 
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Naam</th>
-            <th>Acties</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${allUsers}">
-            <td th:text="${user.userId}">1</td>
-            <td th:text="${user.userName}">Naam</td>
-            <td>
-                <a th:href="@{/user/edit/{id}(id=${user.userId})}" class="btn btn-warning btn-sm rounded-5">Bewerk</a>
-                <a th:href="@{/user/delete/{id}(id=${user.userId})}" class="btn btn-danger btn-sm rounded-5"
-                   onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?');">Verwijder</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a href="/user/add" class="btn btn-primary mb-3 rounded-5">Nieuwe gebruiker toevoegen</a>
+<!--    <table class="table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>Naam</th>-->
+<!--            <th>Acties</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="recipeUser : ${allUsers}">-->
+<!--            <td th:text="${recipeUser.userId}">1</td>-->
+<!--            <td th:text="${recipeUser.userName}">Naam</td>-->
+<!--            <td>-->
+<!--                <a th:href="@{/recipeUser/edit/{id}(id=${recipeUser.userId})}" class="btn btn-warning btn-sm rounded-5">Bewerk</a>-->
+<!--                <a th:href="@{/recipeUser/delete/{id}(id=${recipeUser.userId})}" class="btn btn-danger btn-sm rounded-5"-->
+<!--                   onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?');">Verwijder</a>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--    <a href="/recipeUser/add" class="btn btn-primary mb-3 rounded-5">Nieuwe gebruiker toevoegen</a>-->
+<!--</div>-->
+
+<div class="container">
+    <h1>Overview of all users</h1>
+    <ul>
+        <li th:each="user : ${allUsers}" th:text="${user.userName}"></li>
+    </ul>
+
+    <button type="button"
+            class="btn btn-outline-secondary btn-lg px-4 fw-bold"
+            data-bs-toggle="modal" data-bs-target="#newForm">
+        <i class="bi bi-plus-square"></i> Add user
+    </button>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
+<div th:replace="~{fragments/recipeuser :: userFormModal(${formUsers}, ${#fields})}"></div>
+
 </body>
+
 </html>

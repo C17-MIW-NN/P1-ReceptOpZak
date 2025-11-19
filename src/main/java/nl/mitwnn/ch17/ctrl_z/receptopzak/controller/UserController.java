@@ -1,13 +1,13 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.User;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.UserRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.dto.NewRecipeUserDTO;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeUser;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeUserRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.service.RecipeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * @author Sybren Bonnema
@@ -15,46 +15,64 @@ import java.util.Random;
  */
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/recipeUser")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final RecipeUserRepository recipeUserRepository;
+    private final RecipeUserService recipeUserService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(RecipeUserRepository recipeUserRepository, RecipeUserService recipeUserService) {
+        this.recipeUserRepository = recipeUserRepository;
+        this.recipeUserService = recipeUserService;
     }
 
     @GetMapping("/all")
     public String showUserOverview(Model datamodel) {
-        datamodel.addAttribute("allUsers", userRepository.findAll());
-        datamodel.addAttribute("formUsers", new User());
+        datamodel.addAttribute("allUsers", recipeUserRepository.findAll());
+        datamodel.addAttribute("formUsers", new RecipeUser());
 
         return "userOverview";
     }
 
     @GetMapping("/add")
     public String showUserForm(Model datamodel) {
-        datamodel.addAttribute("user", new User());
+        datamodel.addAttribute("user", new RecipeUser());
         return "userForm";
     }
 
     @PostMapping("/save")
-    public String saveUser(@ModelAttribute User user) {
-        userRepository.save(user);
-        return "redirect:/user/all";
+    public String saveUser(@ModelAttribute("formUsers") NewRecipeUserDTO userDtoToBeSaved, BindingResult result, Model datamodel) {
+
+        if (recipeUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
+            result.rejectValue("username", "duplicate", "Username is already in use");
+        }
+
+        if (!userDtoToBeSaved.getPassword().equals(userDtoToBeSaved.getPassword())) {
+            result.rejectValue("password", "no.match", "Passwords do not match");
+        }
+
+        if (result.hasErrors()) {
+            datamodel.addAttribute("allUsers", recipeUserService.getAllUsers());
+            datamodel.addAttribute("formModalHidden", false);
+            return "userOverview";
+        }
+
+        recipeUserService.save(userDtoToBeSaved);
+        return "redirect:/recipeUser/all";
     }
+
 
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, Model model) {
-       User user = userRepository.findById(id).orElseThrow();
-       model.addAttribute("user", user);
+       RecipeUser recipeUser = recipeUserRepository.findById(id).orElseThrow();
+       model.addAttribute("user", recipeUser);
        return "userForm";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
-        return "redirect:/user/all";
+        recipeUserRepository.deleteById(id);
+        return "redirect:/recipeUser/all";
     }
 
 }

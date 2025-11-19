@@ -38,11 +38,11 @@
         </div>
 
         <div class="mb-3">
-            <label for="user" class="form-label">Gebruiker (selecteer 1)</label>
-            <select id="user" class="form-select" th:field="*{user}" required>
-                <option th:each="user : ${allUsers}"
-                        th:text="${user.userName}"
-                        th:value="${user.userId}">
+            <label for="recipeUser" class="form-label">Gebruiker (selecteer 1)</label>
+            <select id="recipeUser" class="form-select" th:field="*{recipeUser}" required>
+                <option th:each="recipeUser : ${allUsers}"
+                        th:text="${recipeUser.userName}"
+                        th:value="${recipeUser.userId}">
                 </option>
             </select>
         </div>

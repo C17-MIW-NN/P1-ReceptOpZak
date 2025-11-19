@@ -30,19 +30,16 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
     private final IngredientRepository ingredientRepository;
-    private final UserRepository userRepository;
+    private final RecipeUserRepository recipeUserRepository;
     private final ImageService imageService;
     private final InstructionRepository instructionRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository,
-                            IngredientRepository ingredientRepository,
-                            RecipeIngredientRepository recipeIngredientRepository,
-                            UserRepository userRepository, ImageService imageService,
-                            InstructionRepository instructionRepository) {
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, RecipeUserRepository recipeUserRepository, ImageService imageService, InstructionRepository instructionRepository) {
+
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
-        this.userRepository = userRepository;
+        this.recipeUserRepository = recipeUserRepository;
         this.imageService = imageService;
         this.instructionRepository = instructionRepository;
     }
@@ -84,7 +81,7 @@ public class RecipeController {
 
     private String showForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
-        datamodel.addAttribute("allUsers", userRepository.findAll());
+        datamodel.addAttribute("allUsers", recipeUserRepository.findAll());
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
         datamodel.addAttribute("formIngredient", new Ingredient());
@@ -195,7 +192,6 @@ public class RecipeController {
                                  MultipartFile recipeImage) {
         try {
             if (recipeImage != null && !recipeImage.isEmpty()) {
-
                 imageService.saveImage(recipeImage);
                 recipeSave.setImageURL("/image/" + recipeImage.getOriginalFilename());
             } else {
@@ -210,7 +206,6 @@ public class RecipeController {
             result.rejectValue("recipeImage", "imageNotSaved", "Image not saved");
         }
     }
-
 
     private String validateRecipeTitle(Recipe recipeSave, BindingResult result, Model datamodel) {
         Optional<Recipe> recipeWithSameTitle = recipeRepository.findByRecipeName(recipeSave.getRecipeName());

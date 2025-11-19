@@ -26,7 +26,7 @@ public class Recipe {
     private String imageURL;
 
     @ManyToOne
-    private User user;
+    private RecipeUser recipeUser;
 
     @ManyToMany
     private Set<Category> categories;
@@ -86,12 +86,12 @@ public class Recipe {
         this.categories = categories;
     }
 
-    public User getUser() {
-        return user;
+    public RecipeUser getRecipeUser() {
+        return recipeUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRecipeUser(RecipeUser recipeUser) {
+        this.recipeUser = recipeUser;
     }
 
     public List<RecipeIngredient> getRecipeIngredients() {
