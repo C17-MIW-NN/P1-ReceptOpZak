@@ -30,14 +30,12 @@
             <textarea id="recipeDescription" class="form-control auto-expand" rows="1"
                       placeholder="Bijvoorbeeld: 'Een heerlijk lunch recept met brood en ei'" required
                       oninput="autoResize(this)" th:field="*{description}"></textarea>
-
         </div>
 
-            <div class="mb-3">
-                <label for="imageFile" class="form-label">Afbeelding recept:</label>
-                <input type="file" id="imageFile" name="recipeImage" accept="image/*">
-            </div>
-
+        <div class="mb-3">
+            <label for="imageFile" class="form-label">Afbeelding recept:</label>
+            <input type="file" id="imageFile" name="recipeImage" accept="image/*">
+        </div>
 
         <div class="mb-3">
             <label for="user" class="form-label">Gebruiker (selecteer 1)</label>
@@ -60,29 +58,26 @@
         </div>
 
         <div class="mb-3">
-            <label for="ingredients" class="form-label">Jouw ingrediënten</label>
-            <select id="ingredients" class="form-select" th:field="*{ingredients}" multiple>
-                <option th:each="ingredient : ${allIngredients}"
-                        th:value="${ingredient.ingredientId}"
-                        th:text="${ingredient.ingredientName}">
-                </option>
-            </select>
-        </div>
+            <h4>Ingrediënten toevoegen</h4>
+            <div id="ingredients">
+                <div th:each="recipeIngredient : *{recipeIngredients}">
+                    <label class="form-label">Naam</label>
+                    <input type="text" name="ingredientNames[]" th:value="${recipeIngredient.ingredient.ingredientName}">
+                    <label class="form-label">Hoeveelheid</label>
+                    <input type="text" name="quantities[]" th:value="${recipeIngredient.quantity}">
+                    <button type="button" class="remove">Verwijder</button>
+                </div>
 
-        <div class="mb-3">
-            <h4>Nieuw ingrediënt toevoegen</h4>
-            <label for="newIngredientName" class="form-label">Nieuw ingrediënt naam</label>
-            <input type="text" id="newIngredientName" class="form-control"
-                   th:field="*{newIngredient.ingredientName}">
-            <label for="newIngredientCarb" class="form-label">Nieuw ingrediënt koolhydraten</label>
-            <input type="number" id="newIngredientCarb" class="form-control mt-2"
-                   th:field="*{newIngredient.ingredientCarb}">
-            <label for="newIngredientFat" class="form-label">Nieuw ingrediënt vetten per 100g</label>
-            <input type="number" id="newIngredientFat" class="form-control mt-2"
-                   th:field="*{newIngredient.ingredientFat}">
-            <label for="newIngredientProtein" class="form-label">Nieuw ingrediënt eiwitten per 100g</label>
-            <input type="number" id="newIngredientProtein" class="form-control mt-2"
-                   th:field="*{newIngredient.ingredientProtein}">
+                <div th:if="${#lists.isEmpty(formRecipe.recipeIngredients)}">
+                    <label class="form-label">Naam</label>
+                    <input type="text" name="ingredientNames[]">
+                    <label class="form-label">Hoeveelheid</label>
+                    <input type="text" name="quantities[]">
+                    <button type="button" class="remove">Verwijder</button>
+                </div>
+            </div>
+
+            <button type="button" id="addIngredient">Voeg nog een ingrediënt toe</button>
         </div>
 
         <button type="submit" class="btn btn-primary">Opslaan</button>
@@ -94,5 +89,6 @@
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
+<script src="/js/recipeForm.js"></script>
 </body>
 </html>

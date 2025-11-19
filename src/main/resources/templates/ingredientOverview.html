@@ -15,63 +15,7 @@
     <h2 class="mb-3">Ingrediënten</h2>
     <h5 class="mb-3">Voedingswaarden per 100 gram</h5>
 
-    <form th:action="@{/ingredient/save}" th:object="${formIngredients}" method="post" class="ingredientForm">
-    <table class="ingredientTable">
-        <thead class="ingredientTableHeader">
-        <tr class="tableRow">
-            <th class="ingredientCell">Naam</th>
-            <th class="ingredientCell">Koolhydraten</th>
-            <th class="ingredientCell">Vetten</th>
-            <th class="ingredientCell">Eiwitten</th>
-            <th class="ingredientCell">Kcal</th>
-            <th class="ingredientCell"></th>
-        </tr>
-        </thead>
-        <tbody class="ingredientTableBody">
-        <tr th:each="ingredient : ${allIngredients}" class="tableRow">
-            <td th:text="${ingredient.ingredientName}" class="ingredientCell"></td>
-            <td th:text="${ingredient.ingredientCarb}" class="ingredientCell"></td>
-            <td th:text="${ingredient.ingredientFat}" class="ingredientCell"></td>
-            <td th:text="${ingredient.ingredientProtein}" class="ingredientCell"></td>
-            <td th:text="${ingredient.ingredientKcal}" class="ingredientCell"></td>
-            <td class="deleteButton">
-                <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}"
-                   class="btn btn-danger btn-sm rounded-5">
-                    Verwijder
-                </a>
-            </td>
-        </tr>
-        <tr class="tableRow">
-            <td>
-                <label for="ingredientName"></label>
-                <input type="text" class="ingredientInput" id="ingredientName" th:field="*{ingredientName}" required>
-            </td>
-            <td>
-                <label for="ingredientCarb"></label>
-                <input type="text" class="ingredientInput" id="ingredientCarb" th:field="*{ingredientCarb}" required>
-            </td>
-            <td>
-                <label for="ingredientFat"></label>
-                <input type="text" class="ingredientInput" id="ingredientFat" th:field="*{ingredientFat}" required>
-            </td>
-            <td>
-                <label for="ingredientProtein"></label>
-                <input type="text" class="ingredientInput"  id="ingredientProtein" th:field="*{ingredientProtein}"
-                       required>
-            </td>
-            <td>
-
-            </td>
-            <td>
-                <label for="ingredientSubmit"></label>
-                <button type="submit" class="btn btn-primary" id="ingredientSubmit">
-                    Voeg toe
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    </form>
+    <div th:replace="~{fragments/ingredient.html :: ingredientsTable(${allIngredients})}"></div>
 
 </div>
 
@@ -79,4 +23,5 @@
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
 </body>
+
 </html>

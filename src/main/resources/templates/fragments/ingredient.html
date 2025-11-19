@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!---/**
+ * @author Pelle Meuzelaar
+ * Here is the code for the fragments for in the ingredient page
+ */
+ -->
+
+<div th:fragment="ingredientsTable(allIngredients)">
+
+    <table class="ingredientTable">
+        <thead class="ingredientTableHeader">
+        <tr class="tableRow">
+            <th class="ingredientCell">Naam</th>
+            <th class="ingredientCell">Koolhydraten</th>
+            <th class="ingredientCell">Vetten</th>
+            <th class="ingredientCell">Eiwitten</th>
+            <th class="ingredientCell">Kcal</th>
+            <th class="ingredientCell"></th>
+            <th class="ingredientCell"></th>
+        </tr>
+        </thead>
+
+        <tbody class="ingredientTableBody">
+        <tr th:each="ingredient : ${allIngredients}" class="tableRow">
+            <td th:text="${ingredient.ingredientName}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientCarb}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientFat}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientProtein}" class="ingredientCell"></td>
+            <td th:text="${ingredient.ingredientKcal}" class="ingredientCell"></td>
+            <td class="deleteButton">
+                <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}"
+                   class="btn btn-danger btn-sm rounded-5">
+                    Verwijder
+                </a>
+            </td>
+
+<!--            Dit is de kcal code die nog berekend moet worden-->
+
+<!--            <form th:action="@{/ingredient/save}" method="post">-->
+<!--                <input type="hidden" th:value="${ingredient.ingredientId}">-->
+<!--                <td><input type="text" th:value="${ingredient.ingredientName}" class="form-control"></td>-->
+<!--                <td><input type="number" th:value="${ingredient.ingredientCarb}" class="form-control"></td>-->
+<!--                <td><input type="number" th:value="${ingredient.ingredientFat}" class="form-control"></td>-->
+<!--                <td><input type="number" th:value="${ingredient.ingredientProtein}" class="form-control"></td>-->
+<!--                <td th:text="${ingredient.ingredientKcal}" class="ingredientCell"></td>-->
+<!--                <td><button type="submit" class="btn btn-primary btn-sm rounded-5">Opslaan</button></td>-->
+<!--            </form>-->
+
+<!--            <td class="deleteButton">-->
+<!--                <a th:href="@{/ingredient/delete/{id}(id=${ingredient.ingredientId})}"-->
+<!--                   class="btn btn-danger btn-sm rounded-5">Delete</a>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</html>

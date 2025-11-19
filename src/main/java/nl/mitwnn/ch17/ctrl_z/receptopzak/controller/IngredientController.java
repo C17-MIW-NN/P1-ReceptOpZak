@@ -1,8 +1,9 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
+import jakarta.transaction.Transactional;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeIngredientRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 /**
  * @author Pelle Meuzelaar
- * Purpose for the class
+ * Handles requests regarding ingredients
  */
 
 @Controller
@@ -22,10 +23,12 @@ public class IngredientController {
 
     private final IngredientRepository ingredientRepository;
     private final RecipeRepository recipeRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
 
-    public IngredientController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository) {
+    public IngredientController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository, RecipeIngredientRepository recipeIngredientRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
+        this.recipeIngredientRepository = recipeIngredientRepository;
     }
 
     // Show ingredients
@@ -44,25 +47,21 @@ public class IngredientController {
             return "redirect:/ingredient/all";
         }
 
+        ingredient.setIngredientKcal();
+
         ingredientRepository.save(ingredient);
-        return "redirect:/recipe/add";
+        return "redirect:/ingredient/all";
     }
 
     // Delete ingredients
+    @Transactional
     @GetMapping("/delete/{ingredientId}")
     public String deleteIngredient(@PathVariable("ingredientId") Long ingredientId) {
-        Optional<Ingredient> optionalIngredient = ingredientRepository.findById(ingredientId);
 
-        if (optionalIngredient.isPresent()) {
-            Ingredient ingredient = optionalIngredient.get();
+        recipeIngredientRepository.deleteAllByIngredient_IngredientId(ingredientId);
 
-            for (Recipe recipe : recipeRepository.findAll()) {
-                recipe.getIngredients().remove(ingredient);
-                recipeRepository.save(recipe);
-            }
+        ingredientRepository.deleteById(ingredientId);
 
-            ingredientRepository.deleteById(ingredientId);
-        }
         return "redirect:/ingredient/all";
     }
 }

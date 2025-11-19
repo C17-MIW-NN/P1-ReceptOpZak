@@ -2,10 +2,8 @@ package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.CategoryRepository;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.IngredientRepository;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.UserRepository;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeIngredient;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.*;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.service.ImageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -33,7 +32,7 @@ public class RecipeController {
     private final UserRepository userRepository;
     private final ImageService imageService;
 
-    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, UserRepository userRepository, ImageService imageService) {
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, UserRepository userRepository, ImageService imageService) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
@@ -54,7 +53,6 @@ public class RecipeController {
 
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("selectedCategoryId", categoryId);
-
 
         return "recipeHome";
     }
@@ -106,6 +104,8 @@ public class RecipeController {
     // Save recipes
     @PostMapping("/recipe/save")
     public String saveOrUpdateRecipe(@ModelAttribute("formRecipe") Recipe recipeSave,
+                                     @RequestParam(value = "ingredientNames[]", required = false) List<String> ingredientNames,
+                                     @RequestParam(value = "quantities[]", required = false) List<Integer> quantities,
                                      BindingResult result, Model datamodel,
                                      @RequestParam(value = "recipeImage", required = false) MultipartFile recipeImage) {
 
@@ -118,21 +118,37 @@ public class RecipeController {
         String validationResult = validateRecipeTitle(recipeSave, result, datamodel);
         if (validationResult != null) return validationResult;
 
-        Ingredient newIngredient = recipeSave.getNewIngredient();
+        saveRecipeImage(recipeSave, result, recipeImage);
 
-        boolean hasNewIngredient = newIngredient != null && newIngredient.getIngredientName() != null &&
-                !newIngredient.getIngredientName().isBlank();
+        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
-        if (hasNewIngredient) {
-            newIngredient.setIngredientKcal();
-            Ingredient savedIngredient = ingredientRepository.save(newIngredient);
+        if (ingredientNames == null) {
+            ingredientNames = new ArrayList<>();
+        }
 
-            if (recipeSave.getIngredients() == null) {
-                recipeSave.setIngredients(new HashSet<>());
+        for (int ingredientIndex = 0; ingredientIndex < ingredientNames.size(); ingredientIndex++) {
+            String ingredientName = ingredientNames.get(ingredientIndex);
+            int quantity = quantities.size() > ingredientIndex ? quantities.get(ingredientIndex) : 0;
+
+            RecipeIngredient recipeIngredient = new RecipeIngredient();
+
+            Optional<Ingredient> optionalIngredient = ingredientRepository.findByIngredientName(ingredientName);
+            if (optionalIngredient.isPresent()) {
+                recipeIngredient.setIngredient(optionalIngredient.get());
+            } else {
+                Ingredient ingredient = new Ingredient();
+                ingredient.setIngredientName(ingredientName);
+                ingredientRepository.save(ingredient);
+                recipeIngredient.setIngredient(ingredient);
             }
 
-            recipeSave.getIngredients().add(savedIngredient);
+            recipeIngredient.setQuantity(quantity);
+            recipeIngredient.setRecipe(recipeSave);
+
+            recipeIngredients.add(recipeIngredient);
         }
+
+        recipeSave.setRecipeIngredients(recipeIngredients);
 
         recipeRepository.save(recipeSave);
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
