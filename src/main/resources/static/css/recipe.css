@@ -41,3 +41,55 @@
     font-size: 1rem;
     border-radius: 32px;
 }
+
+/*Card settings recipes*/
+
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/*Scroll to top button */
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    z-index: 100;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    padding: 0;
+    text-align: center;
+}
+
+/* category buttons homepage */
+.btn-group .btn {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Hover: achtergrondkleur + tekstkleur + lichte pop */
+.btn-group .btn:hover {
+    background-color: #0d6efd;   /* Bootstrap primary */
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+}
+
+/* Actieve knop extra styling */
+.btn-group .btn.active {
+    background-color: #0d6efd;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border: none;
+}
+
+
+

@@ -24,9 +24,9 @@
     </div>
 </div>
 
-<div th:fragment="recipeCards(recipes)" class="row row-cols-1 row-cols-md-4 mt-5">
+<div th:fragment="recipeCards(recipes)" class="row row-cols-1 row-cols-md-4 mt-4">
     <div class="col mb-5" th:each="recipe : ${recipes}">
-        <div class="card h-100 border-0 d-flex flex-column bg-light">
+        <div class="card card-hover h-100 border-0 d-flex flex-column bg-light">
             <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}">
                 <img th:src="${recipe.imageURL}"
                      class="card-img-top object-fit-cover rounded-top"
@@ -35,6 +35,13 @@
             </a>
             <div class="card-body d-flex flex-column rounded">
                 <h4 th:text="${recipe.recipeName}" class="card-title"></h4>
+                <div class="mb-2">
+                    <a th:each="category : ${recipe.categories}"
+                       th:text="${category.categoryName}"
+                       class="btn btn-warning btn-sm me-2 mb-1"
+                       role="button"></a>
+                </div>
+
                 <h6 class="text-muted mb-3 card-subtitle">Door: <span th:text="${recipe.user.userName}"></span></h6>
                 <div class="mt-auto">
                     <a class="btn btn-primary rounded-5"
@@ -46,12 +53,8 @@
     </div>
 </div>
 
-<div th:fragment="recipeAdd(recipes)" class="col text-center">
-    <a class="btn btn-outline-primary rounded-5"
+<div th:fragment="recipeAdd(recipes)" class="col mt-3 text-center">
+    <a class="btn btn-outline-primary rounded-5 addBtn"
        th:href="@{/recipe/add}" role="button">Voeg nieuw recept toe <i class="bi bi-plus-lg"></i></a>
 </div>
-
-
-
-
 </html>
