@@ -2,6 +2,7 @@ package nl.mitwnn.ch17.ctrl_z.receptopzak.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public class Recipe {
     private Set<Category> categories;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeIngredient> recipeIngredients;
+    private List<RecipeIngredient> recipeIngredients;
 
 //    @Transient
 //    private Ingredient newIngredient;
@@ -94,11 +95,11 @@ public class Recipe {
         this.user = user;
     }
 
-    public Set<RecipeIngredient> getRecipeIngredients() {
+    public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
 
-    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
 

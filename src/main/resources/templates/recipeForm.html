@@ -59,25 +59,25 @@
 
         <div class="mb-3">
             <h4>Ingrediënten toevoegen</h4>
-            <div th:each="recipeIngredient : *{recipeIngredients}" class="ingredientGrid">
-                <label for="newIngredientName" class="form-label">Naam</label>
-                <input type="text" id="newIngredientName" name="ingredientNames[]"
-                       th:value="${recipeIngredient.ingredient.ingredientName}">
-                <label for="newIngredientQuantity" class="form-label">Naam</label>
-                <input type="text" id="newIngredientQuantity" name="quantities[]"
-                       th:value="${recipeIngredient.quantity}">
-                <button type="button" class="remove">Remove</button>
+            <div id="ingredients">
+                <div th:each="recipeIngredient : *{recipeIngredients}">
+                    <label class="form-label">Naam</label>
+                    <input type="text" name="ingredientNames[]" th:value="${recipeIngredient.ingredient.ingredientName}">
+                    <label class="form-label">Hoeveelheid</label>
+                    <input type="text" name="quantities[]" th:value="${recipeIngredient.quantity}">
+                    <button type="button" class="remove">Verwijder</button>
+                </div>
+
+                <div th:if="${#lists.isEmpty(formRecipe.recipeIngredients)}">
+                    <label class="form-label">Naam</label>
+                    <input type="text" name="ingredientNames[]">
+                    <label class="form-label">Hoeveelheid</label>
+                    <input type="text" name="quantities[]">
+                    <button type="button" class="remove">Verwijder</button>
+                </div>
             </div>
 
-            <div th:if="${#lists.isEmpty(formRecipe.recipeIngredients)}" class="mb-3">
-                <label for="anotherIngredientName" class="form-label">Naam</label>
-                <input type="text" id="anotherIngredientName" name="ingredientNames[]">
-                <label for="anotherIngredientQuantity" class="form-label">Hoeveelheid</label>
-                <input type="text" id="anotherIngredientQuantity" name="quantities[]">
-
-                <button type="button" class="remove">Verwijder</button>
-                <button type="button" id="addIngredient">Voeg nog een ingrediënt toe</button>
-            </div>
+            <button type="button" id="addIngredient">Voeg nog een ingrediënt toe</button>
         </div>
 
         <button type="submit" class="btn btn-primary">Opslaan</button>
@@ -89,5 +89,6 @@
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
+<script src="/js/recipeForm.js"></script>
 </body>
 </html>

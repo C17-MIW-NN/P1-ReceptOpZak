@@ -22,12 +22,6 @@
     text-align: center;
 }
 
-.ingredientGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-}
-
 /*Table settings ingredient form*/
 
 .ingredientInput {

@@ -29,7 +29,7 @@ public class Ingredient {
     private Integer ingredientProtein;
     private Integer ingredientKcal;
 
-    @OneToMany(mappedBy = "ingredient")
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredients;
 
     public Ingredient(String name, int carb, int fat, int protein) {
@@ -98,5 +98,13 @@ public class Ingredient {
     public void setIngredientKcal() {
         this.ingredientKcal = KCAL_PER_GRAM_CARB * ingredientCarb + KCAL_PER_GRAM_FAT * ingredientFat +
                 KCAL_PER_GRAM_PROTEIN * ingredientProtein;
+    }
+
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
     }
 }

@@ -1,9 +1,6 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 /**
  * @author Pelle Meuzelaar
@@ -21,7 +18,7 @@ public class RecipeIngredient {
     @ManyToOne
     private Recipe recipe;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Ingredient ingredient;
 
     public Long getId() {

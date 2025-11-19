@@ -29,7 +29,6 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
     private final IngredientRepository ingredientRepository;
-    private final RecipeIngredientRepository RecipeIngredientRepository;
     private final UserRepository userRepository;
     private final ImageService imageService;
 
@@ -37,7 +36,6 @@ public class RecipeController {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
-        this.RecipeIngredientRepository = recipeIngredientRepository;
         this.userRepository = userRepository;
         this.imageService = imageService;
     }
@@ -150,7 +148,7 @@ public class RecipeController {
             recipeIngredients.add(recipeIngredient);
         }
 
-
+        recipeSave.setRecipeIngredients(recipeIngredients);
 
         recipeRepository.save(recipeSave);
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();

@@ -52,9 +52,20 @@
     <div class="mb-4">
         <label class="form-label fw-bold">Ingrediënten</label>
         <div class="border rounded p-3 bg-light">
-            <ul class="mb-0">
-                <li th:each="ingredient : ${recipe.recipeIngredients}" th:text="${ingredient.ingredientName}">Ingredient</li>
-            </ul>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Ingredient</th>
+                    <th scope="col">Hoeveelheid</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ingredientUse : ${recipe.getRecipeIngredients()}">
+                    <td th:text="${ingredientUse.ingredient.ingredientName}"></td>
+                    <td th:text="${ingredientUse.quantity}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
