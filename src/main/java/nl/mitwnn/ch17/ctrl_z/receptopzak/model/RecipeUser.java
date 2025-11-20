@@ -78,7 +78,7 @@ public class RecipeUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return userName;
     }
 
     public void setPassword(String password) {

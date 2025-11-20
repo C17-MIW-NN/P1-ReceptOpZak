@@ -26,7 +26,11 @@ public class RecipeSecurityConfig {
                         .requestMatchers("/css/**", "/webjars/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .formLogin(login -> login
+                        .defaultSuccessUrl("/recipe/all", true)
+                        .permitAll()
+                )
+
                 .logout((logout) -> logout.logoutSuccessUrl("/"))
         ;
 
