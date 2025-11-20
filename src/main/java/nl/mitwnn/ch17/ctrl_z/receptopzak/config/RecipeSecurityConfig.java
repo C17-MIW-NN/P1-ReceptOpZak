@@ -23,7 +23,7 @@ public class RecipeSecurityConfig {
         httpSecurity
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/", "recipe/all").permitAll()
-                        .requestMatchers("/css/**", "/webjars/**").permitAll()
+                        .requestMatchers("/css/**", "/webjars/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)

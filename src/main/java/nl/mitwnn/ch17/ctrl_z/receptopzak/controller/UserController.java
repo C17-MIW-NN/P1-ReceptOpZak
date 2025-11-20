@@ -29,25 +29,20 @@ public class UserController {
     @GetMapping("/all")
     public String showUserOverview(Model datamodel) {
         datamodel.addAttribute("allUsers", recipeUserRepository.findAll());
-        datamodel.addAttribute("formUsers", new RecipeUser());
+        datamodel.addAttribute("formUser", new NewRecipeUserDTO());
+        datamodel.addAttribute("formModalHidden", true);
 
         return "userOverview";
     }
 
-    @GetMapping("/add")
-    public String showUserForm(Model datamodel) {
-        datamodel.addAttribute("user", new RecipeUser());
-        return "userForm";
-    }
-
     @PostMapping("/save")
-    public String saveUser(@ModelAttribute("formUsers") NewRecipeUserDTO userDtoToBeSaved, BindingResult result, Model datamodel) {
+    public String saveUser(@ModelAttribute("formUser") NewRecipeUserDTO userDtoToBeSaved, BindingResult result, Model datamodel) {
 
         if (recipeUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
             result.rejectValue("username", "duplicate", "Username is already in use");
         }
 
-        if (!userDtoToBeSaved.getPassword().equals(userDtoToBeSaved.getPassword())) {
+        if (!userDtoToBeSaved.getPassword().equals(userDtoToBeSaved.getConfirmPassword())) {
             result.rejectValue("password", "no.match", "Passwords do not match");
         }
 
@@ -61,18 +56,9 @@ public class UserController {
         return "redirect:/recipeUser/all";
     }
 
-
-    @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable Long id, Model model) {
-       RecipeUser recipeUser = recipeUserRepository.findById(id).orElseThrow();
-       model.addAttribute("user", recipeUser);
-       return "userForm";
-    }
-
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         recipeUserRepository.deleteById(id);
         return "redirect:/recipeUser/all";
     }
-
 }
