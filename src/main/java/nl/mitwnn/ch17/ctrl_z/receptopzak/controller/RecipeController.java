@@ -118,7 +118,14 @@ public class RecipeController {
                                      BindingResult result, Model datamodel,
                                      @RequestParam(value = "recipeImage", required = false) MultipartFile recipeImage) {
 
-        saveRecipeImage(recipeSave, result, recipeImage);
+
+        Recipe originalRecipe = null;
+        if (recipeSave.getRecipeId() != null) {
+            originalRecipe = recipeRepository.findById(recipeSave.getRecipeId())
+                    .orElse(null);
+        }
+
+        saveRecipeImage(recipeSave, originalRecipe, result, recipeImage);
 
         if (result.hasErrors()) {
             return "redirect:/recipe/all";
@@ -182,18 +189,28 @@ public class RecipeController {
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
     }
 
-    private void saveRecipeImage(Recipe recipeSave, BindingResult result, MultipartFile recipeImage) {
+    private void saveRecipeImage(Recipe recipeSave,
+                                 Recipe originalRecipe,
+                                 BindingResult result,
+                                 MultipartFile recipeImage) {
         try {
             if (recipeImage != null && !recipeImage.isEmpty()) {
+
                 imageService.saveImage(recipeImage);
                 recipeSave.setImageURL("/image/" + recipeImage.getOriginalFilename());
             } else {
-                recipeSave.setImageURL("/images/defaultRecipe.png");
+                if (originalRecipe == null || originalRecipe.getImageURL() == null) {
+                    recipeSave.setImageURL("/images/defaultRecipe.png");
+                } else {
+                    recipeSave.setImageURL(originalRecipe.getImageURL());
+                }
             }
+
         } catch (IOException imageError) {
             result.rejectValue("recipeImage", "imageNotSaved", "Image not saved");
         }
     }
+
 
     private String validateRecipeTitle(Recipe recipeSave, BindingResult result, Model datamodel) {
         Optional<Recipe> recipeWithSameTitle = recipeRepository.findByRecipeName(recipeSave.getRecipeName());
