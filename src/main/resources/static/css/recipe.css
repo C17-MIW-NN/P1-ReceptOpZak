@@ -91,5 +91,12 @@
     border: none;
 }
 
+.btn {
+    border-radius: 32px;
+}
+
+.form-label{
+    font-weight: bold;
+}
 
 
