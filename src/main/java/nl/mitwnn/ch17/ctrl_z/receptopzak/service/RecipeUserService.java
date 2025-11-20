@@ -52,5 +52,4 @@ public class RecipeUserService implements UserDetailsService {
         saveUser(RecipeUserMapper.fromDTO(userDtoToBeSaved));
     }
 
-
 }

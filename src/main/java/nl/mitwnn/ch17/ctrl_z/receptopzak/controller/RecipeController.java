@@ -229,5 +229,4 @@ public class RecipeController {
         return "redirect:/recipe/all";
     }
 
-
 }
