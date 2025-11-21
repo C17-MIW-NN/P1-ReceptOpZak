@@ -31,8 +31,7 @@ public class RecipeSecurityConfig {
                         .permitAll()
                 )
 
-                .logout((logout) -> logout.logoutSuccessUrl("/"))
-        ;
+                .logout((logout) -> logout.logoutSuccessUrl("/"));
 
         return httpSecurity.build();
     }

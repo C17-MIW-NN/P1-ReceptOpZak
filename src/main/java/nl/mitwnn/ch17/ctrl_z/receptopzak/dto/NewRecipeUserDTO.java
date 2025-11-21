@@ -4,6 +4,7 @@ package nl.mitwnn.ch17.ctrl_z.receptopzak.dto;
  * @author Sabien Ruijgrok
  * Doel van het project
  */
+
 public class NewRecipeUserDTO {
 
     private String username;

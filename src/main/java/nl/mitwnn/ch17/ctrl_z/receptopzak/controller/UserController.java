@@ -1,7 +1,6 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
 import nl.mitwnn.ch17.ctrl_z.receptopzak.dto.NewRecipeUserDTO;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeUser;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeUserRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.service.RecipeUserService;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public String saveUser(@ModelAttribute("formUser") NewRecipeUserDTO userDtoToBeSaved, BindingResult result, Model datamodel) {
+    public String saveUser(@ModelAttribute("formUser") NewRecipeUserDTO userDtoToBeSaved,
+                           BindingResult result, Model datamodel) {
 
         if (recipeUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
             result.rejectValue("username", "duplicate", "Username is already in use");

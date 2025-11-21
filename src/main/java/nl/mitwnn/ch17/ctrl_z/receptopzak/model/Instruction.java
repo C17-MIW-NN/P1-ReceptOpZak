@@ -23,7 +23,6 @@ public class Instruction {
     @ManyToOne
     private Recipe recipe;
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

@@ -22,25 +22,6 @@
     text-align: center;
 }
 
-/*Table settings ingredient form*/
-
-.ingredientInput {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: 1px solid black;
-    border-radius: 32px;
-    padding: 5px;
-    font-size: 1rem;
-}
-
-#ingredientSubmit {
-    width: 100%;
-    height: 100%;
-    padding: 5px;
-    font-size: 1rem;
-    border-radius: 32px;
-}
 
 /*Card settings recipes*/
 

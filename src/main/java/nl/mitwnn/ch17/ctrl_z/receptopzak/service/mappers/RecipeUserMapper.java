@@ -7,6 +7,7 @@ import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeUser;
  * @author Sabien Ruijgrok
  * Doel van het project
  */
+
 public class RecipeUserMapper {
 
     public static RecipeUser fromDTO(NewRecipeUserDTO newRecipeUserDTO) {
@@ -17,6 +18,4 @@ public class RecipeUserMapper {
 
         return recipeUser;
     }
-
-
 }

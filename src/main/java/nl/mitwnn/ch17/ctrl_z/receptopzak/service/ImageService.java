@@ -30,10 +30,8 @@ public class ImageService {
         imageRepository.findByFileName(file.getOriginalFilename())
                 .ifPresent(imageRepository::delete);
 
-
         MediaType contentType = MediaType.IMAGE_JPEG;
         if (file.getContentType() != null) {
-            // TODO: Filter to only allow image types
             contentType = MediaType.parseMediaType(file.getContentType());
         }
 
@@ -50,16 +48,5 @@ public class ImageService {
                 .orElseThrow(() -> new NoSuchElementException(fileName));
     }
 
-    public void saveImage(ClassPathResource imageResource) throws IOException {
-
-        imageRepository.findByFileName(imageResource.getFilename())
-                .ifPresent(imageRepository::delete);
-
-        Image image = new Image();
-        image.setFileName(imageResource.getFilename());
-        image.setContentType(MediaType.IMAGE_JPEG);
-        image.setData(imageResource.getInputStream().readAllBytes());
-        imageRepository.save(image);
-    }
 }
 

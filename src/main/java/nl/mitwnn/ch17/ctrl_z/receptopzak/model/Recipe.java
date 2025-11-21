@@ -11,7 +11,6 @@ import java.util.Set;
  * This is the recipe entity (later more description)
  */
 
-
 @Entity
 public class Recipe {
 
@@ -70,20 +69,12 @@ public class Recipe {
         this.description = description;
     }
 
-    public List<Instruction> getInstructions() {
-        return instructions;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setInstructions(List<Instruction> instructions) {
-        this.instructions = instructions;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public RecipeUser getRecipeUser() {
@@ -94,6 +85,14 @@ public class Recipe {
         this.recipeUser = recipeUser;
     }
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
     public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
@@ -101,12 +100,12 @@ public class Recipe {
     public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
-    public String getImageURL() {
-        return imageURL;
+
+    public List<Instruction> getInstructions() {
+        return instructions;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setInstructions(List<Instruction> instructions) {
+        this.instructions = instructions;
     }
-
 }

@@ -9,5 +9,4 @@ public class ReceptOpZakApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReceptOpZakApplication.class, args);
 	}
-
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
  * @author Sabien Ruijgrok
  * Doel van het project
  */
+
 @Controller
 public class InitializerController {
 
@@ -25,7 +26,6 @@ public class InitializerController {
 
     private void initializeDB() {
         makeUser("Piet", "Pietje");
-
     }
 
     private RecipeUser makeUser(String username, String password) {

@@ -1,7 +1,6 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Category;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.CategoryRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeRepository;
@@ -23,12 +22,12 @@ public class CategoryController {
 
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
+
     public CategoryController(CategoryRepository categoryRepository, RecipeRepository recipeRepository) {
         this.categoryRepository = categoryRepository;
         this.recipeRepository = recipeRepository;
     }
 
-    // Show categories
     @GetMapping("/all")
     public String showCategoryOverview(Model datamodel) {
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
@@ -37,9 +36,10 @@ public class CategoryController {
         return "categoryOverview";
     }
 
-    // Save categories
     @PostMapping("/save")
-    public String saveOrUpdateCategory(@ModelAttribute("formCategories") Category category, BindingResult result) {
+    public String saveOrUpdateCategory(@ModelAttribute("formCategories")
+                                       Category category,
+                                       BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/category/all";
         }
@@ -48,9 +48,9 @@ public class CategoryController {
         return "redirect:/category/all";
     }
 
-    // Delete categories
     @GetMapping("/delete/{categoryId}")
     public String deleteCategory(@PathVariable("categoryId") Long categoryId) {
+
         Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
 
         if (optionalCategory.isPresent()) {
@@ -60,7 +60,6 @@ public class CategoryController {
                 recipe.getCategories().remove(category);
                 recipeRepository.save(recipe);
             }
-
             categoryRepository.deleteById(categoryId);
         }
         return "redirect:/category/all";

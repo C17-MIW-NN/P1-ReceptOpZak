@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Pelle Meuzelaar
- * Interface for ingredient used in recipe
  */
 
 public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredient, Long> {

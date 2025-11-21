@@ -1,32 +1,58 @@
+// RecipeHome scrollButton
 
 const scrollBtn = document.getElementById('scrollTopBtn');
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) {
-        scrollBtn.style.display = 'block';
-    } else {
-        scrollBtn.style.display = 'none';
-    }
-});
+if (scrollBtn) {
 
-scrollBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-
-    function autoResize(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-}
-    document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.auto-expand').forEach(function (textarea) {
-        autoResize(textarea);
+    window.addEventListener('scroll', () => {
+        scrollBtn.style.display = window.scrollY > 10 ? 'block' : 'none';
     });
+
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+}
+
+// RecipeForm ingredients
+
+const addIngredientButton = document.getElementById("addIngredient");
+const ingredientsContainer = document.getElementById("ingredients");
+
+addIngredientButton.addEventListener("click", function () {
+    const ingredientLine = document.createElement("div");
+    ingredientLine.className = "row g-3 mb-2 align-items-end";
+    ingredientLine.innerHTML = `
+
+         <div class="col-md-5">
+            <input type="text" name="ingredientNames[]" class="form-control">
+        </div>
+        <div class="col-md-4">
+      
+            <input type="text" name="quantities[]" class="form-control">
+        </div>
+        <div class="col-md-3 d-flex">
+            <button type="button" class="btn btn-danger w-100 remove">Verwijder</button>
+        </div>
+    `;
+    ingredientsContainer.appendChild(ingredientLine);
 });
 
+ingredientsContainer.addEventListener("click", removeClick);
+
+function removeClick(e) {
+
+    const removeButton = e.target.closest("button.remove");
+
+    if (removeButton) {
+        removeButton.closest(".row").remove();
+    }
+}
 
 
-    function addInstruction() {
+// RecipeForm instructions
+
+function addInstruction() {
     const container = document.getElementById('instructionContainer');
     const stepCount = container.children.length + 1;
 
@@ -41,16 +67,18 @@ scrollBtn.addEventListener('click', () => {
     textarea.name = 'instructionTexts';
     textarea.rows = 1;
     textarea.placeholder = 'Stap ' + stepCount;
-    textarea.oninput = function () { autoResize(this); };
+    textarea.oninput = function () {
+        autoResize(this);
+    };
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.className = 'btn btn-outline-danger';
     removeBtn.innerText = '✕';
     removeBtn.onclick = function () {
-    div.remove();
-    updatePlaceholders();
-};
+        div.remove();
+        updatePlaceholders();
+    };
 
     inputGroup.appendChild(textarea);
     inputGroup.appendChild(removeBtn);
@@ -58,13 +86,29 @@ scrollBtn.addEventListener('click', () => {
     container.appendChild(div);
 
     function updatePlaceholders() {
-    const steps = document.querySelectorAll('#instructionContainer .instruction-step textarea');
-    steps.forEach((textarea, index) => {
-    textarea.placeholder = 'Stap ' + (index + 1);
-});
-}
+        const steps = document.querySelectorAll
+        ('#instructionContainer .instruction-step textarea');
+        steps.forEach((textarea, index) => {
+            textarea.placeholder = 'Stap ' + (index + 1);
+        });
+    }
 
 }
+
+function autoResize(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.auto-expand').forEach(function (textarea) {
+        autoResize(textarea);
+    });
+});
+
+
+
+
 
 
 

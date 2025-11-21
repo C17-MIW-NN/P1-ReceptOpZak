@@ -32,14 +32,6 @@ public class Ingredient {
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredients;
 
-    public Ingredient(String name, int carb, int fat, int protein) {
-        this.ingredientName = name;
-        this.ingredientCarb = carb;
-        this.ingredientFat = fat;
-        this.ingredientProtein = protein;
-        setIngredientKcal();
-    }
-
     public Ingredient(String ingredientName) {
         this.ingredientName = ingredientName;
         this.ingredientCarb = DEFAULT_CARB;
@@ -49,6 +41,7 @@ public class Ingredient {
     }
 
     public Ingredient() {
+
     }
 
     public Long getIngredientId() {

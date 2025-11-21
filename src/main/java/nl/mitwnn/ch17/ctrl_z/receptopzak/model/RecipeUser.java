@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Sybren Bonnema
- * Define characterists for the Author class
+ * Define characterists for the RecipeUser class
  */
 
 @Entity
@@ -43,6 +43,32 @@ public class RecipeUser implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -62,34 +88,8 @@ public class RecipeUser implements UserDetails {
         return true;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
     }
 }
