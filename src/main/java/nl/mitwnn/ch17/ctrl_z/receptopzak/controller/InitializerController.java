@@ -201,6 +201,8 @@ public class InitializerController {
         }
 
         user.setPassword(rawPassword);
+        recipeUserService.saveUser(user);
+
         return user;
     }
 
