@@ -45,6 +45,18 @@ public class Recipe {
                 '}';
     }
 
+    public int countFavoriteCategories() {
+        if (categories == null) return 0;
+
+        int count = 0;
+        for (Category category : categories) {
+            if (category.isFavorite()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public Long getRecipeId() {
         return recipeId;
     }
@@ -108,4 +120,5 @@ public class Recipe {
     public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
     }
+
 }

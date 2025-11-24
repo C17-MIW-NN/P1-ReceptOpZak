@@ -6,7 +6,8 @@ import jakarta.persistence.Id;
 
 /**
  * @author Sabien Ruijgrok
- * Category entity (more description later)
+ * Category entity represents a recipe category, such as "Desserts" or "Snacks".
+ * Each category has a name and can be used to group recipes.
  */
 
 @Entity
@@ -16,6 +17,8 @@ public class Category {
     private Long categoryId;
 
     private String categoryName;
+
+    private boolean favorite;
 
     public Long getCategoryId() {
         return categoryId;
@@ -32,4 +35,14 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 }
+
+
