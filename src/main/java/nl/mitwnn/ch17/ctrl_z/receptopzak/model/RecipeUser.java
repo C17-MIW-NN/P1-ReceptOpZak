@@ -29,6 +29,8 @@ public class RecipeUser implements UserDetails {
     @OneToMany(mappedBy = "recipeUser")
     private List<Recipe> recipes = new ArrayList<>();
 
+    @Column(nullable = false)
+    private String role;
 
     public Long getUserId() {
         return userId;
@@ -90,6 +92,14 @@ public class RecipeUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(role));
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

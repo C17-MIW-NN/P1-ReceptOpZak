@@ -4,6 +4,7 @@ import nl.mitwnn.ch17.ctrl_z.receptopzak.dto.NewRecipeUserDTO;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeUser;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.RecipeUserRepository;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.service.mappers.RecipeUserMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +35,12 @@ public class RecipeUserService implements UserDetailsService {
                         new UsernameNotFoundException("User " + username + " was not found."));
     }
 
+    public RecipeUser getLoggedInUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return recipeUserRepository.findByUserName(username)
+                .orElseThrow();
+    }
+
     public void saveUser(RecipeUser recipeUser) {
         recipeUser.setPassword(passwordEncoder.encode(recipeUser.getPassword()));
         recipeUserRepository.save(recipeUser);
@@ -48,7 +55,13 @@ public class RecipeUserService implements UserDetailsService {
     }
 
     public void save(NewRecipeUserDTO userDtoToBeSaved) {
-        saveUser(RecipeUserMapper.fromDTO(userDtoToBeSaved));
+        RecipeUser user = RecipeUserMapper.fromDTO(userDtoToBeSaved);
+
+        if (user.getRole() == null) {
+            user.setRole("ROLE_USER");
+        }
+
+        saveUser(user);
     }
 
 }

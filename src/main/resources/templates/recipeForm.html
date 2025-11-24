@@ -34,15 +34,8 @@
             <input class="form-control" type="file" id="imageFile" name="recipeImage" accept="image/*">
         </div>
 
-        <div class="mb-3">
-            <label for="recipeUser" class="form-label">Gebruiker (selecteer 1)</label>
-            <select id="recipeUser" class="form-select" th:field="*{recipeUser}" required>
-                <option th:each="recipeUser : ${allUsers}"
-                        th:text="${recipeUser.userName}"
-                        th:value="${recipeUser.userId}">
-                </option>
-            </select>
-        </div>
+        <input type="hidden" th:field="*{recipeUser.userId}">
+
         <div class="mb-3">
             <label class="form-label">Categorie (meerdere opties mogelijk)</label>
 
@@ -67,7 +60,7 @@
                                th:value="${recipeIngredient.ingredient.ingredientName}">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Hoeveelheid</label>
+                        <label class="form-label">Aantal gram</label>
                         <input type="text" class="form-control" name="quantities[]"
                                th:value="${recipeIngredient.quantity}">
                     </div>
@@ -82,7 +75,7 @@
                         <input type="text" name="ingredientNames[]" class="form-control">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Hoeveelheid</label>
+                        <label class="form-label">Aantal gram</label>
                         <input type="text" name="quantities[]" class="form-control">
                     </div>
                     <div class="col-md-3 d-flex">

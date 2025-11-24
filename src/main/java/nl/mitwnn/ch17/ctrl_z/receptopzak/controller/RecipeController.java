@@ -1,11 +1,9 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.controller;
 
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Ingredient;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Instruction;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.Recipe;
-import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeIngredient;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.model.*;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.repositories.*;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.service.ImageService;
+import nl.mitwnn.ch17.ctrl_z.receptopzak.service.RecipeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,13 +29,14 @@ public class RecipeController {
     private final RecipeUserRepository recipeUserRepository;
     private final ImageService imageService;
     private final InstructionRepository instructionRepository;
+    private final RecipeUserService recipeUserService;
 
     public RecipeController(RecipeRepository recipeRepository,
                             CategoryRepository categoryRepository,
                             IngredientRepository ingredientRepository,
                             RecipeUserRepository recipeUserRepository,
                             ImageService imageService,
-                            InstructionRepository instructionRepository) {
+                            InstructionRepository instructionRepository, RecipeUserService recipeUserService) {
 
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
@@ -45,6 +44,7 @@ public class RecipeController {
         this.recipeUserRepository = recipeUserRepository;
         this.imageService = imageService;
         this.instructionRepository = instructionRepository;
+        this.recipeUserService = recipeUserService;
     }
 
 
@@ -67,7 +67,10 @@ public class RecipeController {
 
     @GetMapping("/recipe/add")
     public String showRecipeForm(Model datamodel) {
-        return showForm(datamodel, new Recipe());
+        Recipe newRecipe = new Recipe();
+        newRecipe.setRecipeUser(recipeUserService.getLoggedInUser());
+
+        return showForm(datamodel, newRecipe);
     }
 
 

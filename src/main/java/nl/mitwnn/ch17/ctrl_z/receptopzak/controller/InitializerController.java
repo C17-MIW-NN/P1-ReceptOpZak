@@ -42,14 +42,12 @@ public class InitializerController {
     }
 
     private void initializeDB() {
-        // --- Users ---
-        RecipeUser admin = makeUser("Admin", "ikbenadmin");
+        RecipeUser admin = makeUser("Admin", "Admin");
         RecipeUser piet = makeUser("Piet", "Pietje");
         RecipeUser klaas = makeUser("Klaas", "Klaasje");
         RecipeUser kees = makeUser("Kees", "Keesje");
         RecipeUser anouk = makeUser("Anouk", "Anoukje");
 
-        // --- Categories ---
         Category ontbijt = makeCategory("Ontbijt");
         Category diner = makeCategory("Diner");
         Category frans = makeCategory("Frans");
@@ -59,7 +57,6 @@ public class InitializerController {
         Category snack = makeCategory("Snack");
         Category aziatisch = makeCategory("Aziatisch");
 
-        // --- Ingredients ---
         Ingredient water = makeIngredient("Water");
         Ingredient spekjes = makeIngredient("Spekjes");
         Ingredient mosterd = makeIngredient("Mosterd");
@@ -79,8 +76,6 @@ public class InitializerController {
         Ingredient parmezaan = makeIngredient("Parmezaan");
         Ingredient melk = makeIngredient("Melk");
         Ingredient suiker = makeIngredient("Suiker");
-
-
 
         makeRecipe("Mosterdsoep",
                 "Een hartige soep met mosterd en spek",
@@ -191,14 +186,21 @@ public class InitializerController {
 
         recipeRepository.save(recipe);
         return recipe;
-
     }
 
     private RecipeUser makeUser(String username, String rawPassword) {
         RecipeUser user = new RecipeUser();
+
         user.setUserName(username);
-        user.setPassword(rawPassword); // will be encoded in RecipeUserService
-        recipeUserService.saveUser(user);
+        user.setPassword(rawPassword);
+
+        if (username.equals("Admin")) {
+            user.setRole("ROLE_ADMIN");
+        } else {
+            user.setRole("ROLE_USER");
+        }
+
+        user.setPassword(rawPassword);
         return user;
     }
 

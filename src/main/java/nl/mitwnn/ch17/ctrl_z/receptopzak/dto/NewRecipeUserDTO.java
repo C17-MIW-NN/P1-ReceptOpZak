@@ -34,5 +34,4 @@ public class NewRecipeUserDTO {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
 }

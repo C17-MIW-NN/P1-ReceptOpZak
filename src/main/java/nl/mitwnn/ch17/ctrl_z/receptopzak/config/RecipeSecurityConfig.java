@@ -22,8 +22,8 @@ public class RecipeSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/", "recipe/all").permitAll()
-                        .requestMatchers("/css/**", "/webjars/**", "/js/**").permitAll()
+                        .requestMatchers("/", "recipe/all", "recipe/detail/*").permitAll()
+                        .requestMatchers("/css/**", "/webjars/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -31,7 +31,8 @@ public class RecipeSecurityConfig {
                         .permitAll()
                 )
 
-                .logout((logout) -> logout.logoutSuccessUrl("/"));
+                .logout((logout) -> logout
+                        .logoutSuccessUrl("/"));
 
         return httpSecurity.build();
     }
