@@ -13,7 +13,7 @@ public class RecipeIngredient {
     @Id @GeneratedValue
     private Long id;
 
-    private int quantity;
+    private Integer quantity;
 
     @ManyToOne
     private Recipe recipe;
