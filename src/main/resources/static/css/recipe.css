@@ -84,3 +84,28 @@
 }
 
 
+
+/*Checkbox styling*/
+
+.rounded-checkbox {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    accent-color: dimgrey;
+    vertical-align: middle;
+    margin: 2px;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+    color: gray;
+}
+
+
+
+
+
+
+
+
+

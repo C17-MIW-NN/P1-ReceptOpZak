@@ -107,6 +107,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// RecipeDetail strikethrough
+
+function toggleStrikeTable(checkbox) {
+    const row = checkbox.closest('tr');
+    const cells = row.querySelectorAll('.ingredient-text'); // alleen de divs met tekst
+
+    cells.forEach(cell => {
+        cell.classList.toggle('strikethrough', checkbox.checked);
+    });
+}
+
+function toggleStrikeList(checkbox) {
+    const label = checkbox.nextElementSibling;
+    label.classList.toggle('strikethrough', checkbox.checked);
+
+
+}
 
 
 

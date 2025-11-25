@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>Recept details</title>
@@ -11,87 +11,94 @@
 
 <div class="container mt-5">
 
-
     <h2 class="mb-3">Recept: <span th:text="${recipe.recipeName}">Receptnaam</span></h2>
-
-
-    <div class="card h-100">
-        <img th:src="${recipe.imageURL} ?: '/images/defaultRecipe.png'"
-             class="card-img-top object-fit-cover rounded"
-             style="height: 250px; object-fit: cover;"
-             th:alt="|Image for ${recipe.recipeName}|">
-    </div>
-
-    <div class="mb-5">
-        <h4>Categorieën</h4>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="category : ${recipe.categories}"
-                th:text="${category.categoryName}">Categorie</li>
-        </ul>
-    </div>
-
-
     <p class="text-muted" th:if="${recipe.recipeUser}">
         Toegevoegd door: <strong th:text="${recipe.recipeUser.userName}">Gebruiker</strong>
     </p>
 
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 d-flex flex-column bg-light">
+                <img th:src="${recipe.imageURL} ?: '/images/defaultRecipe.png'"
+                     class="card-img-top rounded-top"
+                     style="height: 300px; object-fit: cover; object-position: center;"
+                     th:alt="|Image for ${recipe.recipeName}|">
 
-    <div class="mb-4">
-        <style>
-            textarea.auto-expand {
-                resize: none;
-                overflow: hidden;
-            }
-        </style>
-        <label class="form-label fw-bold">Beschrijving</label>
-        <textarea class="form-control auto-expand" rows="2"
-                  readonly th:text="${recipe.description}">Beschrijving van het recept</textarea>
-    </div>
+                <div class="card-body">
+                    <h5 class="card-title">Beschrijving</h5>
+                    <p class="card-text" th:text="${recipe.description}">Beschrijving van het recept</p>
 
+                    <h5 class="mb-3">Categorieën</h5>
+                    <a th:each="category : ${recipe.categories}"
+                       th:text="${category.categoryName}"
+                       class="btn btn-success btn-sm me-2 mb-1"
+                       role="button"></a>
+                </div>
+            </div>
+        </div>
 
-    <div class="mb-4">
-        <label class="form-label fw-bold">Ingrediënten</label>
-        <div class="border rounded p-3 bg-light">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Ingredient</th>
-                    <th scope="col">Hoeveelheid</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="ingredientUse : ${recipe.getRecipeIngredients()}">
-                    <td th:text="${ingredientUse.ingredient.ingredientName}"></td>
-                    <td th:text="${ingredientUse.quantity}"></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="col-md-8">
+            <div class="mb-4">
+                <h5>Benodigdheden</h5>
+                <div class="border rounded p-3">
+                    <table class="table mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col"><i class="bi bi-bag"></i></th>
+                            <th scope="col">Ingrediënt</th>
+                            <th scope="col">Hoeveelheid</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ingredientUse : ${recipe.getRecipeIngredients()}">
+                            <td>
+                                <input class="rounded-checkbox" type="checkbox"
+                                       th:id="'ingredient-' + ${ingredientUse.ingredient.ingredientId}"
+                                       onchange="toggleStrikeTable(this)">
+                            </td>
+                            <td>
+                                <div class="ingredient-text" th:text="${ingredientUse.ingredient.ingredientName}"></div>
+                            </td>
+                            <td>
+                                <div class="ingredient-text" th:text="${ingredientUse.quantity}"></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="mb-4">Bereidingswijze</h5>
+                <div class="list-group">
+                    <div th:each="instruction : ${recipe.instructions}"
+                         class="list-group-item d-flex align-items-center">
+                        <input type="checkbox" class="rounded-checkbox me-3 ms-2"
+                               th:id="'instruction-' + ${instruction.stepNumber}"
+                               onchange="toggleStrikeList(this)">
+                        <label class="mb-0 flex-grow-1" th:for="'instruction-' + ${instruction.stepNumber}">
+                            <strong>Stap [[${instruction.stepNumber}]]:</strong> [[${instruction.text}]]
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <a th:if="${#authentication.name == recipe.recipeUser.userName}"
+                   th:href="@{/recipe/edit/{recipeName}(recipeName=${recipe.recipeName})}"
+                   class="btn btn-warning me-2 rounded-5">Bewerk</a>
+
+                <a th:if="${#authentication.name == recipe.recipeUser.userName}"
+                   th:href="@{/recipe/delete/{recipeId}(recipeId=${recipe.recipeId})}"
+                   class="btn btn-danger rounded-5"
+                   onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">
+                    Verwijder
+                </a>
+            </div>
         </div>
     </div>
-
-    <div class="mb-4">
-        <label class="form-label fw-bold">Bereidingswijze</label>
-        <div th:each="instruction : ${recipe.instructions}">
-            <p><strong>Stap [[${instruction.stepNumber}]]:</strong> [[${instruction.text}]]</p>
-        </div>
-    </div>
-
-
-    <div class="mb-5">
-        <a th:if="${#authentication.name == recipe.recipeUser.userName}"
-           th:href="@{/recipe/edit/{recipeName}(recipeName=${recipe.recipeName})}"
-           class="btn btn-warning me-2 rounded-5">Bewerk</a>
-
-        <a th:if="${#authentication.name == recipe.recipeUser.userName}"
-           th:href="@{/recipe/delete/{recipeId}(recipeId=${recipe.recipeId})}"
-           class="btn btn-danger rounded-5"
-           onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">
-            Verwijder
-        </a>
-    </div>
-
-
 </div>
+
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
