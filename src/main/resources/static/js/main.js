@@ -23,15 +23,22 @@ addIngredientButton.addEventListener("click", function () {
     const ingredientLine = document.createElement("div");
     ingredientLine.className = "row g-3 mb-2 align-items-end";
     ingredientLine.innerHTML = `
-
-         <div class="col-md-5">
+        <div class="col-md-2">
             <input type="text" name="ingredientNames[]" class="form-control">
         </div>
-        <div class="col-md-4">
-      
+        <div class="col-md-2">
             <input type="text" name="quantities[]" class="form-control">
         </div>
-        <div class="col-md-3 d-flex">
+        <div class="col-md-2">
+            <input type="number" step="1" name="carbs[]" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <input type="number" step="1" name="fats[]" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <input type="number" step="1" name="proteins[]" class="form-control">
+        </div>
+        <div class="col-md-2 d-flex">
             <button type="button" class="btn btn-danger w-100 remove">Verwijder</button>
         </div>
     `;
