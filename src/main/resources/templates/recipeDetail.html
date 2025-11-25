@@ -25,7 +25,7 @@
                      th:alt="|Image for ${recipe.recipeName}|">
 
                 <div class="card-body">
-                    <h5 class="card-title">Beschrijving</h5>
+                    <h5 class="card-title mb-3">Beschrijving</h5>
                     <p class="card-text" th:text="${recipe.description}">Beschrijving van het recept</p>
 
                     <h5 class="mb-3">Categorieën</h5>
@@ -39,7 +39,7 @@
 
         <div class="col-md-8">
             <div class="mb-4">
-                <h5>Benodigdheden</h5>
+                <h5 class="mb-4">Benodigdheden</h5>
                 <div class="border rounded p-3">
                     <table class="table mb-0">
                         <thead>
@@ -86,11 +86,11 @@
             <div class="mb-5">
                 <a th:if="${#authentication.name == recipe.recipeUser.userName}"
                    th:href="@{/recipe/edit/{recipeName}(recipeName=${recipe.recipeName})}"
-                   class="btn btn-warning me-2 rounded-5">Bewerk</a>
+                   class="btn btn-warning me-2 mt-4">Bewerk</a>
 
                 <a th:if="${#authentication.name == recipe.recipeUser.userName}"
                    th:href="@{/recipe/delete/{recipeId}(recipeId=${recipe.recipeId})}"
-                   class="btn btn-danger rounded-5"
+                   class="btn btn-danger mt-4"
                    onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">
                     Verwijder
                 </a>
