@@ -146,6 +146,24 @@ public class RecipeController {
         return "redirect:/recipe/detail/" + recipeSave.getRecipeName();
     }
 
+    @GetMapping("/recipe/favorites")
+    public String showFavoriteRecipes(Model datamodel) {
+        List<Recipe> favoriteRecipes = recipeRepository.findByFavoriteTrue();
+        datamodel.addAttribute("recipes", favoriteRecipes);
+        return "recipeFavoritesView";
+    }
+
+    @PostMapping("/recipe/{recipeId}/toggleFavorite")
+    public String toggleFavorite(@PathVariable Long recipeId) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeId);
+        if (optionalRecipe.isPresent()) {
+            Recipe recipe = optionalRecipe.get();
+            recipe.setFavorite(!recipe.isFavorite());
+            recipeRepository.save(recipe);
+        }
+        return "redirect:/recipe/detail/" + optionalRecipe.map(Recipe::getRecipeName).orElse("");
+    }
+
     private static List<Instruction> getInstructionList(Recipe recipeSave, List<String> instructionTexts) {
         List<Instruction> instructions = new ArrayList<>();
 

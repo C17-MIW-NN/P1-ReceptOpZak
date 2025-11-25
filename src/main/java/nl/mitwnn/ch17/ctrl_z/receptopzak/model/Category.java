@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 /**
  * @author Sabien Ruijgrok
  * Category entity represents a recipe category
- * Each category has a name and can be used to group recipes and can be marked as a favorite
+ * Each category has a name and can be used to group recipes
  */
 
 @Entity
@@ -17,8 +17,6 @@ public class Category {
     private Long categoryId;
 
     private String categoryName;
-
-    private boolean favorite;
 
     public Long getCategoryId() {
         return categoryId;
@@ -36,13 +34,6 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
 }
 
 

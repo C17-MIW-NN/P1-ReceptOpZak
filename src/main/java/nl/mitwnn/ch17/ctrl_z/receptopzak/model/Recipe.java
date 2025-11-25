@@ -24,6 +24,8 @@ public class Recipe {
 
     private String imageURL;
 
+    private boolean favorite;
+
     @ManyToOne
     private RecipeUser recipeUser;
 
@@ -43,18 +45,6 @@ public class Recipe {
                 ", name='" + recipeName + '\'' +
                 ", imageURL='" + imageURL + '\'' +
                 '}';
-    }
-
-    public int countFavoriteCategories() {
-        if (categories == null) return 0;
-
-        int count = 0;
-        for (Category category : categories) {
-            if (category.isFavorite()) {
-                count++;
-            }
-        }
-        return count;
     }
 
     public Long getRecipeId() {
@@ -87,6 +77,14 @@ public class Recipe {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     public RecipeUser getRecipeUser() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>Recept details</title>
@@ -11,10 +11,19 @@
 
 <div class="container mt-5">
 
-    <h2 class="mb-3">Recept: <span th:text="${recipe.recipeName}">Receptnaam</span></h2>
-    <p class="text-muted" th:if="${recipe.recipeUser}">
-        Toegevoegd door: <strong th:text="${recipe.recipeUser.userName}">Gebruiker</strong>
-    </p>
+    <h2 class="mb-3 d-flex align-items-center">
+        Recept: <span class="ms-2" th:text="${recipe.recipeName}">Receptnaam</span>
+
+        <span sec:authorize="hasRole('USER')">
+            <form th:action="@{'/recipe/' + ${recipe.recipeId} + '/toggleFavorite'}" method="post" class="ms-3">
+                <button type="submit" class="btn btn-link p-0" style="border:none; background:none;">
+                    <i class="bi"
+                       th:classappend="${recipe.favorite} ? 'bi-heart-fill text-danger' : 'bi-heart text-secondary'"></i>
+                </button>
+            </form>
+        </span>
+
+    </h2>
 
     <div class="row">
         <div class="col-md-4 mb-4">
