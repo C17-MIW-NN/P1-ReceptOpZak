@@ -17,7 +17,8 @@
     <div th:replace="~{fragments/recipe.html :: categoryButton(${allCategories})}"></div>
 
     <div sec:authorize="hasRole('USER')" class="col mt-3 text-center">
-        <a class="btn btn-outline-primary rounded-5 addBtn" th:href="@{/recipe/add}" role="button">Voeg nieuw recept toe
+        <a class="btn btn-outline-primary rounded-5 addBtn" th:href="@{/recipe/add}" role="button">
+            Voeg nieuw recept toe
             <i class="bi bi-plus-lg"></i>
         </a>
     </div>

@@ -57,6 +57,17 @@ public class Recipe {
         return count;
     }
 
+    @Transient public double getTotalKcal() {
+        double total = 0.0;
+
+        for (RecipeIngredient recipeIngredient : recipeIngredients) {
+            if (recipeIngredient != null) {
+                total += recipeIngredient.calculateKcalIngredientPerServing();
+            }
+        }
+        return total;
+    }
+
     public Long getRecipeId() {
         return recipeId;
     }

@@ -21,8 +21,8 @@ public class IngredientTest {
         ingredient.setIngredientCarb(1);
         ingredient.setIngredientFat(1);
         ingredient.setIngredientProtein(1);
-        ingredient.setIngredientKcal();
+        ingredient.calculateIngredientKcalPerDefaultQuantity();
 
-        Assertions.assertEquals(17, ingredient.getIngredientKcal());
+        Assertions.assertEquals(17, ingredient.calculateIngredientKcalPerDefaultQuantity());
     }
 }

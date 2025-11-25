@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 @Entity
 public class RecipeIngredient {
 
+    private static final double DEFAULT_QUANTITY = 100.0;
     @Id @GeneratedValue
     private Long id;
 
@@ -30,11 +31,11 @@ public class RecipeIngredient {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -52,5 +53,9 @@ public class RecipeIngredient {
 
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
+    }
+
+    public Double calculateKcalIngredientPerServing() {
+        return (double) quantity * (ingredient.calculateIngredientKcalPerDefaultQuantity() / DEFAULT_QUANTITY);
     }
 }

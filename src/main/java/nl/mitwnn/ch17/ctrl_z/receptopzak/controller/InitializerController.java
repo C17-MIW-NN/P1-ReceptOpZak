@@ -58,32 +58,32 @@ public class InitializerController {
         Category snack = makeCategory("Snack");
         Category aziatisch = makeCategory("Aziatisch");
 
-        Ingredient water = makeIngredient("Water");
-        Ingredient spekjes = makeIngredient("Spekjes");
-        Ingredient mosterd = makeIngredient("Mosterd");
-        Ingredient pasta = makeIngredient("Pasta");
-        Ingredient bacon = makeIngredient("Bacon");
-        Ingredient ei = makeIngredient("Ei");
-        Ingredient tomaten = makeIngredient("Tomaten");
-        Ingredient basilicum = makeIngredient("Basilicum");
-        Ingredient appel = makeIngredient("Appel");
-        Ingredient bloem = makeIngredient("Bloem");
-        Ingredient kaneel = makeIngredient("Kaneel");
-        Ingredient rijst = makeIngredient("Rijst");
-        Ingredient zalm = makeIngredient("Zalm");
-        Ingredient nori = makeIngredient("Nori");
-        Ingredient sla = makeIngredient("Sla");
-        Ingredient kip = makeIngredient("Kip");
-        Ingredient parmezaan = makeIngredient("Parmezaan");
-        Ingredient melk = makeIngredient("Melk");
-        Ingredient suiker = makeIngredient("Suiker");
+        Ingredient water = makeIngredient("Water", 0, 0, 0);
+        Ingredient spekjes = makeIngredient("Spekjes", 1, 38, 15);     // average bacon bits
+        Ingredient mosterd = makeIngredient("Mosterd", 5, 6, 5);
+        Ingredient pasta = makeIngredient("Pasta", 75, 1, 13);
+        Ingredient bacon = makeIngredient("Bacon", 1, 42, 13);
+        Ingredient ei = makeIngredient("Ei", 1, 11, 13);
+        Ingredient tomaten = makeIngredient("Tomaten", 3, 0, 1);
+        Ingredient basilicum = makeIngredient("Basilicum", 3, 1, 3);
+        Ingredient appel = makeIngredient("Appel", 14, 0, 0);
+        Ingredient bloem = makeIngredient("Bloem", 76, 1, 10);
+        Ingredient kaneel = makeIngredient("Kaneel", 81, 1, 4);
+        Ingredient rijst = makeIngredient("Rijst", 78, 1, 7);
+        Ingredient zalm = makeIngredient("Zalm", 0, 13, 20);
+        Ingredient nori = makeIngredient("Nori", 5, 0, 5);
+        Ingredient sla = makeIngredient("Sla", 2, 0, 1);
+        Ingredient kip = makeIngredient("Kip", 0, 3, 27);
+        Ingredient parmezaan = makeIngredient("Parmezaan", 4, 29, 35);
+        Ingredient melk = makeIngredient("Melk", 5, 1, 3);
+        Ingredient suiker = makeIngredient("Suiker", 100, 0, 0);
 
         makeRecipe("Mosterdsoep",
                 "Een hartige soep met mosterd en spek",
                 "/images/mosterdsoep 1.jpg",
                 piet,
                 List.of(diner, frans),
-                Map.of(water, 5, spekjes, 3, mosterd, 1),
+                Map.of(water, 500, spekjes, 100, mosterd, 50),
                 List.of("Breng water aan de kook",
                         "voeg de mosterd toe", "voeg de spekjes toe"));
 
@@ -214,10 +214,14 @@ public class InitializerController {
         return category;
     }
 
-    private Ingredient makeIngredient(String ingredientName) {
+    private Ingredient makeIngredient(String name, Integer carb, Integer fat, Integer protein) {
         Ingredient ingredient = new Ingredient();
-        ingredient.setIngredientName(ingredientName);
+        ingredient.setIngredientName(name);
+        ingredient.setIngredientCarb(carb);
+        ingredient.setIngredientFat(fat);
+        ingredient.setIngredientProtein(protein);
         ingredientRepository.save(ingredient);
         return ingredient;
     }
+
 }

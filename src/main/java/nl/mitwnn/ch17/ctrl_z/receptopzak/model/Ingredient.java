@@ -27,21 +27,31 @@ public class Ingredient {
     private Integer ingredientCarb;
     private Integer ingredientFat;
     private Integer ingredientProtein;
-    private Integer ingredientKcal;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredients;
+
+    public Ingredient(String name, Integer carb, Integer fat, Integer protein) {
+        this.ingredientName = name;
+        this.ingredientCarb = carb;
+        this.ingredientFat = fat;
+        this.ingredientProtein = protein;
+        calculateIngredientKcalPerDefaultQuantity();
+    }
 
     public Ingredient(String ingredientName) {
         this.ingredientName = ingredientName;
         this.ingredientCarb = DEFAULT_CARB;
         this.ingredientFat = DEFAULT_FAT;
         this.ingredientProtein = DEFAULT_PROTEIN;
-        setIngredientKcal();
+        calculateIngredientKcalPerDefaultQuantity();
     }
 
     public Ingredient() {
-
+        this.ingredientCarb = DEFAULT_CARB;
+        this.ingredientFat = DEFAULT_FAT;
+        this.ingredientProtein = DEFAULT_PROTEIN;
+        calculateIngredientKcalPerDefaultQuantity();
     }
 
     public Long getIngredientId() {
@@ -84,13 +94,11 @@ public class Ingredient {
         this.ingredientProtein = ingredientProtein;
     }
 
-    public Integer getIngredientKcal() {
-        return ingredientKcal;
-    }
-
-    public void setIngredientKcal() {
-        this.ingredientKcal = KCAL_PER_GRAM_CARB * ingredientCarb + KCAL_PER_GRAM_FAT * ingredientFat +
-                KCAL_PER_GRAM_PROTEIN * ingredientProtein;
+    public Integer calculateIngredientKcalPerDefaultQuantity() {
+        return
+                (ingredientCarb == null ? 0 : ingredientCarb * KCAL_PER_GRAM_CARB) +
+                (ingredientProtein == null ? 0 : ingredientProtein * KCAL_PER_GRAM_PROTEIN) +
+                (ingredientFat == null ? 0 : ingredientFat * KCAL_PER_GRAM_FAT);
     }
 
     public List<RecipeIngredient> getRecipeIngredients() {
