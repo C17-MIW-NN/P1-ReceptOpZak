@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 /**
  * @author Sabien Ruijgrok
- * Doel van het project
+ * Image service saves uploaded images and retrieves them by filename
  */
 
 @Service

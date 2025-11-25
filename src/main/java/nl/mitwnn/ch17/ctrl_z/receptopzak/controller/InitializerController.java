@@ -12,8 +12,9 @@ import org.springframework.stereotype.Controller;
 import java.util.*;
 
 /**
- * @authors Sabien Ruijgrok & Sybren Bonnema
- * Populates database with eight recipes for demo purposes
+ * @author Sabien Ruijgrok, @Sybren Bonnema, @Pelle Meuzelaar
+ * Populates database with eight recipes for demo purpose
+ * and contains different users
  */
 
 @Controller

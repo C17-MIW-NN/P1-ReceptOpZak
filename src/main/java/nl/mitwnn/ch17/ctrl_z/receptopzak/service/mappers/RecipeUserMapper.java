@@ -4,8 +4,8 @@ import nl.mitwnn.ch17.ctrl_z.receptopzak.dto.NewRecipeUserDTO;
 import nl.mitwnn.ch17.ctrl_z.receptopzak.model.RecipeUser;
 
 /**
- * @author Sabien Ruijgrok
- * Doel van het project
+ * @author Sabien Ruijgrok, @Pelle Meuzelaar
+ * Converts a NewRecipeUserDTO into a RecipeUser object
  */
 
 public class RecipeUserMapper {

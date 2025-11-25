@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Sybren Bonnema
+ * @author Sybren Bonnema, @Pelle Meuzelaar, @Sabien Ruijgrok
  * Helps the program store and display users
  */
 

@@ -1,8 +1,9 @@
 package nl.mitwnn.ch17.ctrl_z.receptopzak.dto;
 
 /**
- * @author Sabien Ruijgrok
- * Doel van het project
+ * @author Sabien Ruijgrok, @Pelle Meuzelaar
+ * DTO represents the data required to register a new recipe user,
+ * including username, password, and password confirmation
  */
 
 public class NewRecipeUserDTO {

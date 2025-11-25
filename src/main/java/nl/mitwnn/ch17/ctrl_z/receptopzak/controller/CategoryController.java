@@ -13,7 +13,8 @@ import java.util.Optional;
 
 /**
  * @author Sabien Ruijgrok
- * Category can be added and changed
+ * controller manages the overview, creation, updating, and deletion of categories,
+ * including removing them from associated recipes
  */
 
 @Controller

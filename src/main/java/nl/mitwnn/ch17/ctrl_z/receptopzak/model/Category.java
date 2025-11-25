@@ -6,8 +6,8 @@ import jakarta.persistence.Id;
 
 /**
  * @author Sabien Ruijgrok
- * Category entity represents a recipe category, such as "Desserts" or "Snacks".
- * Each category has a name and can be used to group recipes.
+ * Category entity represents a recipe category
+ * Each category has a name and can be used to group recipes and can be marked as a favorite
  */
 
 @Entity

@@ -14,7 +14,8 @@ import java.util.List;
 
 
 /**
- * @author Sabien Ruijgrok
+ * @author Sabien Ruijgrok, @Pelle Meuzelaar
+ * Handles loading, saving, and validating recipe users
  */
 
 @Service

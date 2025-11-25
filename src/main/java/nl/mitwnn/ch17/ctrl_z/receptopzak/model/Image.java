@@ -7,7 +7,7 @@ import java.awt.*;
 
 /**
  * @author Sabien Ruijgrok
- * Image entity
+ * Image entity that stores an image with its name,type and data
  */
 
 @Entity

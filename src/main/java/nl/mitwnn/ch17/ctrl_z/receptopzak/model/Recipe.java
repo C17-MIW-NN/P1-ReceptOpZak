@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * @author Sabien Ruijgrok
- * This is the recipe entity (later more description)
+ * Represents a recipe with its name, description, image, creator, categories, ingredients, and instructions.
  */
 
 @Entity

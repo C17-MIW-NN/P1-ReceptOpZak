@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Sabien Ruijgrok
- * Doel van het project
+ * controller retrieves and returns stored images
  */
 
 @Controller
