@@ -1,27 +1,8 @@
-/* Table settings ingredients page */
+/*Admin page settings */
 
-.ingredientTable {
-    margin: 40px auto;
-    width: 100%;
-    table-layout: fixed;
-    border: none;
-    border-radius: 10px;
-    border-collapse: separate;
-    overflow: hidden;
-    background-color: var(--bs-tertiary-bg);
-    padding: 20px;
+h2.admin-pages {
+    padding-bottom: 30px;
 }
-
-.ingredientCell {
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 5px;
-}
-
-.deleteButton {
-    text-align: center;
-}
-
 
 /*Card settings recipes*/
 
@@ -82,8 +63,6 @@
 .form-label{
     font-weight: bold;
 }
-
-
 
 /*Checkbox styling*/
 

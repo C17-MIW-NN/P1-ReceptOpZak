@@ -12,21 +12,21 @@
 
 <div class="container mt-5">
 
-
+    <h2 class="mb-4 admin-pages">Overzicht van alle gebruikers</h2>
 
     <table class="table">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Naam</th>
-            <th>Acties</th>
+            <th class="text-center">Naam</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="recipeUser : ${allUsers}">
             <td th:text="${recipeUser.userId}">1</td>
-            <td th:text="${recipeUser.userName}">Naam</td>
-            <td>
+            <td th:text="${recipeUser.userName}" class="text-center">Naam</td>
+            <td class="text-end">
                 <a th:href="@{/recipeUser/delete/{id}(id=${recipeUser.userId})}"
                    class="btn btn-danger btn-sm rounded-5"
                    onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?');">

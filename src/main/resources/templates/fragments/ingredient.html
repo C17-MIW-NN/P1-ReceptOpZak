@@ -9,27 +9,26 @@
 
 <div th:fragment="ingredientsTable(allIngredients)">
 
-    <table class="ingredientTable">
-        <thead class="ingredientTableHeader">
-        <tr class="tableRow">
-            <th class="ingredientCell">Naam</th>
-            <th class="ingredientCell">Koolhydraten</th>
-            <th class="ingredientCell">Vetten</th>
-            <th class="ingredientCell">Eiwitten</th>
-            <th class="ingredientCell">Kcal per 100g</th>
-            <th class="ingredientCell"></th>
-            <th class="ingredientCell"></th>
+    <table class="table align-middle">
+        <thead class="table">
+        <tr>
+            <th>Naam</th>
+            <th class="text-center">Koolhydraten per 100g</th>
+            <th class="text-center">Vetten per 100g</th>
+            <th class="text-center">Eiwitten per 100g</th>
+            <th class="text-center">Kcal per 100g</th>
+            <th></th>
         </tr>
         </thead>
 
-        <tbody class="ingredientTableBody">
-        <tr th:each="ingredient : ${allIngredients}" class="tableRow">
-            <td th:text="${ingredient.ingredientName}" class="ingredientCell"></td>
-            <td th:text="${ingredient.ingredientCarb}" class="ingredientCell"></td>
-            <td th:text="${ingredient.ingredientFat}" class="ingredientCell"></td>
-            <td th:text="${ingredient.ingredientProtein}" class="ingredientCell"></td>
-            <td th:text="${ingredient.calculateIngredientKcalPerDefaultQuantity()}" class="ingredientCell"></td>
-            <td class="deleteButton">
+        <tbody>
+        <tr th:each="ingredient : ${allIngredients}">
+            <td th:text="${ingredient.ingredientName}"></td>
+            <td th:text="${ingredient.ingredientCarb}" class="text-center"></td>
+            <td th:text="${ingredient.ingredientFat}" class="text-center"></td>
+            <td th:text="${ingredient.ingredientProtein}" class="text-center"></td>
+            <td th:text="${ingredient.calculateIngredientKcalPerDefaultQuantity()}" class="text-center"></td>
+            <td class="deleteButton text-end">
                 <a th:href="@{/ingredient/delete/{ingredientId}(ingredientId=${ingredient.ingredientId})}"
                    class="btn btn-danger btn-sm rounded-5">
                     Verwijder
