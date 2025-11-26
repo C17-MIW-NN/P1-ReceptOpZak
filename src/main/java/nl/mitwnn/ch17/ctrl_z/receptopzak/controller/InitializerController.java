@@ -164,6 +164,27 @@ public class InitializerController {
         recipe.setRecipeUser(recipeUser);
         recipe.setCategories(new HashSet<>(categories));
 
+        makeInstructions(instructionTexts, recipe);
+
+        makeIngredientList(ingredientsWithQuantities, recipe);
+
+        recipeRepository.save(recipe);
+        return recipe;
+    }
+
+    private static void makeIngredientList(Map<Ingredient, Integer> ingredientsWithQuantities, Recipe recipe) {
+        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+        for (Map.Entry<Ingredient, Integer> entry : ingredientsWithQuantities.entrySet()) {
+            RecipeIngredient ri = new RecipeIngredient();
+            ri.setIngredient(entry.getKey());
+            ri.setQuantity(entry.getValue());
+            ri.setRecipe(recipe);
+            recipeIngredients.add(ri);
+        }
+        recipe.setRecipeIngredients(recipeIngredients);
+    }
+
+    private static void makeInstructions(List<String> instructionTexts, Recipe recipe) {
         List<Instruction> instructions = new ArrayList<>();
         int stepNumber = 1;
         for (String text : instructionTexts) {
@@ -174,19 +195,6 @@ public class InitializerController {
             instructions.add(instruction);
         }
         recipe.setInstructions(instructions);
-
-        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
-        for (Map.Entry<Ingredient, Integer> entry : ingredientsWithQuantities.entrySet()) {
-            RecipeIngredient ri = new RecipeIngredient();
-            ri.setIngredient(entry.getKey());
-            ri.setQuantity(entry.getValue());
-            ri.setRecipe(recipe);
-            recipeIngredients.add(ri);
-        }
-        recipe.setRecipeIngredients(recipeIngredients);
-
-        recipeRepository.save(recipe);
-        return recipe;
     }
 
     private RecipeUser makeUser(String username, String rawPassword) {
