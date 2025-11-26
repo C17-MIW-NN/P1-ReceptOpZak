@@ -22,8 +22,11 @@
                 </button>
             </form>
         </span>
-
     </h2>
+
+    <p class="text-muted" th:if="${recipe.recipeUser}">
+        Toegevoegd door: <strong th:text="${recipe.recipeUser.userName}">Gebruiker</strong>
+    </p>
 
     <div class="row">
         <div class="col-md-4 mb-4">
