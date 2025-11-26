@@ -116,6 +116,12 @@ public class RecipeController {
                                      List<String> ingredientNames,
                                      @RequestParam(value = "quantities[]", required = false)
                                      List<Integer> quantities,
+                                     @RequestParam(value = "carbs[]", required = false)
+                                     List<Integer> carbs,
+                                     @RequestParam(value = "fats[]", required = false)
+                                     List<Integer> fats,
+                                     @RequestParam(value = "proteins[]", required = false)
+                                     List<Integer> proteins,
                                      @RequestParam(value = "instructionTexts", required = false)
                                      List<String> instructionTexts,
                                      BindingResult result, Model datamodel,
@@ -133,7 +139,7 @@ public class RecipeController {
         String validationResult = validateRecipeTitle(recipeSave, result, datamodel);
         if (validationResult != null) return validationResult;
 
-        ingredientSave(recipeSave, ingredientNames, quantities);
+        ingredientSave(recipeSave, ingredientNames, quantities, carbs, fats, proteins);
         instructionRepository.deleteAll(recipeSave.getInstructions());
 
         List<Instruction> instructions = getInstructionList(recipeSave, instructionTexts);
@@ -182,22 +188,36 @@ public class RecipeController {
         return instructions;
     }
 
-    private void ingredientSave(Recipe recipe, List<String> names, List<Integer> quantities) {
+    private void ingredientSave(Recipe recipe,
+                                List<String> names,
+                                List<Integer> quantities,
+                                List<Integer> carbs,
+                                List<Integer> fats,
+                                List<Integer> proteins) {
         names = names == null ? new ArrayList<>() : names;
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
         for (int i = 0; i < names.size(); i++) {
             String name = names.get(i);
             int quantity = (i < quantities.size()) ? quantities.get(i) : 0;
+            int carb = carbs != null && i < carbs.size() ? carbs.get(i) : 0;
+            int fat = fats != null && i < fats.size() ? fats.get(i) : 0;
+            int protein = proteins != null && i < proteins.size() ? proteins.get(i) : 0;
 
             Ingredient ingredient = ingredientRepository
                     .findByIngredientName(name)
-                    .orElseGet(() -> ingredientRepository.save(new Ingredient(name)));
+                    .orElseGet(() -> ingredientRepository.save(new Ingredient(name, carb, fat, protein)));
+
+            ingredient.setIngredientCarb(carb);
+            ingredient.setIngredientFat(fat);
+            ingredient.setIngredientProtein(protein);
+            ingredientRepository.save(ingredient);
 
             RecipeIngredient recipeIngredient = new RecipeIngredient();
             recipeIngredient.setIngredient(ingredient);
             recipeIngredient.setQuantity(quantity);
             recipeIngredient.setRecipe(recipe);
+
             recipeIngredients.add(recipeIngredient);
         }
 

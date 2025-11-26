@@ -18,6 +18,8 @@
 
         <input type="hidden" th:field="*{recipeId}">
 
+        <!-- Name, description and image -->
+
         <div class="mb-3 mt-5">
             <label for="recipeName" class="form-label">Naam</label>
             <input type="text" id="recipeName" th:field="*{recipeName}" class="form-control"
@@ -49,36 +51,72 @@
                        th:text="${category.categoryName}">Categorie naam</label>
             </div>
         </div>
+
+        <!-- Ingredients -->
+
         <div class="mb-3">
-            <label for="ingredients" class="form-label">Ingrediënten toevoegen</label>
             <div id="ingredients">
 
-                <div th:each="recipeIngredient : *{recipeIngredients}" class="row g-3 mb-2 align-items-end">
-                    <div class="col-md-5">
-                        <label class="form-label">Naam</label>
-                        <input type="text" class="form-control" name="ingredientNames[]"
-                               th:value="${recipeIngredient.ingredient.ingredientName}">
+                <!--Code for EDIT form-->
+
+                <div class="mb-3">
+                    <label for="ingredients" class="form-label">Ingrediënten toevoegen</label>
+
+                    <div class="row g-3 mb-2">
+                        <div class="col-md-2 fw-bold small">Naam</div>
+                        <div class="col-md-2 fw-bold small">Koolhydraten (per 100g)</div>
+                        <div class="col-md-2 fw-bold small">Vetten (per 100g)</div>
+                        <div class="col-md-2 fw-bold small">Eiwitten (per 100g)</div>
+                        <div class="col-md-2 fw-bold small">Hoeveelheid (g)</div>
+                        <div class="col-md-2"></div>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Aantal gram</label>
-                        <input type="text" class="form-control" name="quantities[]"
-                               th:value="${recipeIngredient.quantity}">
-                    </div>
-                    <div class="col-md-3 d-flex">
-                        <button type="button" class="btn btn-danger w-100 remove">Verwijder</button>
+
+                    <div th:each="recipeIngredient : *{recipeIngredients}" class="row g-3 mb-2 align-items-end">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="ingredientNames[]"
+                                   th:value="${recipeIngredient.ingredient.ingredientName}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="carbs[]"
+                                   th:value="${recipeIngredient.ingredient.ingredientCarb}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="fats[]"
+                                   th:value="${recipeIngredient.ingredient.ingredientFat}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="proteins[]"
+                                   th:value="${recipeIngredient.ingredient.ingredientProtein}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="quantities[]"
+                                   th:value="${recipeIngredient.quantity}">
+                        </div>
+                        <div class="col-md-2 d-flex">
+                            <button type="button" class="btn btn-danger w-100 remove">Verwijder</button>
+                        </div>
                     </div>
                 </div>
 
+                <!--Code for NEW form-->
+
                 <div th:if="${#lists.isEmpty(formRecipe.recipeIngredients)}" class="row g-3 mb-2 align-items-end">
-                    <div class="col-md-5">
-                        <label class="form-label">Naam</label>
+                    <div class="col-md-2">
                         <input type="text" name="ingredientNames[]" class="form-control">
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Aantal gram</label>
+                    <div class="col-md-2">
+                        <input type="number" step="1" name="carbs[]" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" step="1" name="fats[]" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" step="1" name="proteins[]" class="form-control">
+                    </div>
+                    <div class="col-md-2">
                         <input type="text" name="quantities[]" class="form-control">
                     </div>
-                    <div class="col-md-3 d-flex">
+                    <div class="col-md-2 d-flex">
                         <button type="button" class="btn btn-danger w-100 remove">Verwijder</button>
                     </div>
                 </div>
@@ -89,15 +127,17 @@
                 </button>
             </div>
 
+            <!-- Instructions -->
+
             <div class="mb-3">
                 <label class="form-label">Instructies</label>
                 <div id="instructionContainer">
                     <div th:each="instruction, stat : ${formRecipe.instructions}" class="instruction-step mb-2">
                         <div class="input-group">
-            <textarea class="form-control auto-expand" name="instructionTexts"
-                      th:placeholder="'Stap ' + ${stat.index + 1}"
-                      th:text="${instruction.text}" rows="1"
-                      oninput="autoResize(this)"></textarea>
+                            <textarea class="form-control auto-expand" name="instructionTexts"
+                              th:placeholder="'Stap ' + ${stat.index + 1}"
+                              th:text="${instruction.text}" rows="1"
+                              oninput="autoResize(this)"></textarea>
                             <button type="button" class="btn btn-outline-danger"
                                     onclick="this.closest('.instruction-step').remove(); updatePlaceholders();">✕
                             </button>

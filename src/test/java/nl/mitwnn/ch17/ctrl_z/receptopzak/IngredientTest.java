@@ -9,20 +9,47 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Pelle Meuzelaar
- * Tests for ingredient class
+ * Unit tests for Ingredient class
  */
 
 public class IngredientTest {
     @Test
-    @DisplayName("test if the ingredients class calculates calories correctly")
-    void testCalorieCalculation() {
+    @DisplayName("test if the ingredients class calculates calories correctly when using normal integer input")
+    void testCalorieCalculationNormal() {
         Ingredient ingredient = new Ingredient();
 
         ingredient.setIngredientCarb(1);
         ingredient.setIngredientFat(1);
         ingredient.setIngredientProtein(1);
-        ingredient.setIngredientKcal();
+        ingredient.calculateIngredientKcalPerDefaultQuantity();
 
-        Assertions.assertEquals(17, ingredient.getIngredientKcal());
+        Assertions.assertEquals(17, ingredient.calculateIngredientKcalPerDefaultQuantity());
     }
+
+    @Test
+    @DisplayName("test if the ingredients class calculates calories correctly when using null input")
+    void testCalorieCalculationNullValues() {
+        Ingredient ingredient = new Ingredient();
+
+        ingredient.setIngredientCarb(null);
+        ingredient.setIngredientFat(1);
+        ingredient.setIngredientProtein(null);
+        ingredient.calculateIngredientKcalPerDefaultQuantity();
+
+        Assertions.assertEquals(9, ingredient.calculateIngredientKcalPerDefaultQuantity());
+    }
+
+    @Test
+    @DisplayName("test if the ingredients class calculates calories correctly when using 0 as input")
+    void testCalorieCalculationZeroValues() {
+        Ingredient ingredient = new Ingredient();
+
+        ingredient.setIngredientCarb(1);
+        ingredient.setIngredientFat(0);
+        ingredient.setIngredientProtein(1);
+        ingredient.calculateIngredientKcalPerDefaultQuantity();
+
+        Assertions.assertEquals(8, ingredient.calculateIngredientKcalPerDefaultQuantity());
+    }
+
 }

@@ -36,19 +36,6 @@ public class IngredientController {
         return "ingredientOverview";
     }
 
-    @PostMapping("/save")
-    public String saveOrUpdateIngredient(@ModelAttribute("formIngredient") Ingredient ingredient,
-                                         BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/ingredient/all";
-        }
-
-        ingredient.setIngredientKcal();
-
-        ingredientRepository.save(ingredient);
-        return "redirect:/ingredient/all";
-    }
-
     @Transactional
     @GetMapping("/delete/{ingredientId}")
     public String deleteIngredient(@PathVariable("ingredientId") Long ingredientId) {

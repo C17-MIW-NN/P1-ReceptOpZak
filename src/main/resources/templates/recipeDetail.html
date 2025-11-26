@@ -37,11 +37,15 @@
                     <h5 class="card-title mb-3">Beschrijving</h5>
                     <p class="card-text" th:text="${recipe.description}">Beschrijving van het recept</p>
 
+                    <h5>Calorieën</h5>
+                    <p>[[${T(java.lang.Math).round(recipe.totalKcal)}]] kcal</p>
+
                     <h5 class="mb-3">Categorieën</h5>
                     <a th:each="category : ${recipe.categories}"
                        th:text="${category.categoryName}"
                        class="btn btn-success btn-sm me-2 mb-1"
                        role="button"></a>
+
                 </div>
             </div>
         </div>
@@ -55,7 +59,7 @@
                         <tr>
                             <th scope="col"><i class="bi bi-bag"></i></th>
                             <th scope="col">Ingrediënt</th>
-                            <th scope="col">Hoeveelheid</th>
+                            <th scope="col">Hoeveelheid (in gram)</th>
                         </tr>
                         </thead>
                         <tbody>
