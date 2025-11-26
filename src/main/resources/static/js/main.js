@@ -5,7 +5,7 @@ const scrollBtn = document.getElementById('scrollTopBtn');
 if (scrollBtn) {
 
     window.addEventListener('scroll', () => {
-        scrollBtn.style.display = window.scrollY > 10 ? 'block' : 'none';
+        scrollBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
     });
 
     scrollBtn.addEventListener('click', () => {
@@ -80,7 +80,7 @@ function addInstruction() {
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
-    removeBtn.className = 'btn btn-outline-danger';
+    removeBtn.className = 'btn btn-danger';
     removeBtn.innerText = '✕';
     removeBtn.onclick = function () {
         div.remove();

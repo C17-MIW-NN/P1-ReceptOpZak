@@ -3,7 +3,6 @@
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>Recipe Home</title>
-
 </head>
 
 <body>
@@ -17,9 +16,8 @@
     <div th:replace="~{fragments/recipe.html :: categoryButton(${allCategories})}"></div>
 
     <div sec:authorize="hasRole('USER')" class="col mt-3 text-center">
-        <a class="btn btn-outline-primary rounded-5 addBtn" th:href="@{/recipe/add}" role="button">
-            Voeg nieuw recept toe
-            <i class="bi bi-plus-lg"></i>
+        <a class="btn btn-primary addBtn" th:href="@{/recipe/add}" role="button">
+            <i class="bi bi-plus-square"></i> Voeg nieuw recept toe
         </a>
     </div>
 

@@ -53,7 +53,7 @@ public class InitializerController {
         Category diner = makeCategory("Diner");
         Category frans = makeCategory("Frans");
         Category lunch = makeCategory("Lunch");
-        Category desert = makeCategory("Dessert");
+        Category dessert = makeCategory("Dessert");
         Category gezond = makeCategory("Gezond");
         Category snack = makeCategory("Snack");
         Category aziatisch = makeCategory("Aziatisch");
@@ -82,7 +82,7 @@ public class InitializerController {
                 "Een hartige soep met mosterd en spek",
                 "/images/mosterdsoep 1.jpg",
                 piet,
-                List.of(diner, frans),
+                List.of(diner, gezond, lunch),
                 Map.of(water, 500, spekjes, 100, mosterd, 50),
                 List.of("Breng water aan de kook",
                         "voeg de mosterd toe", "voeg de spekjes toe"));
@@ -91,7 +91,7 @@ public class InitializerController {
                 "Een klassieke Italiaanse pasta met spek en ei",
                 "/images/carbonara 1.jpg",
                 piet,
-                List.of(diner, frans),
+                List.of(diner, lunch),
                 Map.of(pasta, 200, bacon, 100, ei, 2),
                 List.of("Kook de pasta",
                         "Bak de bacon",
@@ -101,7 +101,7 @@ public class InitializerController {
                 "Klassieke Hollandse tomatensoep met verse basilicum",
                 "/images/tomatensoep.jpg",
                 piet,
-                List.of(diner, gezond),
+                List.of(diner, gezond, lunch),
                 Map.of(water, 500, tomaten, 300, basilicum, 20),
                 List.of("Breng water aan de kook",
                         "Voeg tomaten toe",
@@ -111,7 +111,7 @@ public class InitializerController {
                 "Traditionele Nederlandse appeltaart met kaneel",
                 "/images/appeltaart.jpg",
                 klaas,
-                List.of(desert, snack),
+                List.of(dessert, snack),
                 Map.of(appel, 3, bloem, 200, kaneel, 10),
                 List.of("Snijd appels in stukjes",
                         "Meng met bloem en kaneel",
@@ -122,7 +122,7 @@ public class InitializerController {
                 "Japanse rolletjes met rijst en zalm",
                 "/images/sushi.jpg",
                 piet,
-                List.of(lunch, aziatisch),
+                List.of( aziatisch),
                 Map.of(rijst, 200, zalm, 100, nori, 3),
                 List.of("Kook de rijst",
                         "Leg rijst en zalm op nori",

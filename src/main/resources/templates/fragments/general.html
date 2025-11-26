@@ -7,40 +7,42 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
-    <link rel="stylesheet" type="text/css" href="/css/recipe.css" />
+    <link rel="stylesheet" type="text/css" href="/css/recipe.css"/>
 </head>
 
 <body>
 <div th:fragment="navBar">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="height: 90px;">
         <div class="container-fluid">
-            <a class="navbar-brand fs-2 fw-medium" href="/recipe/all">
-                <i class="bi bi-backpack4"></i>ReceptOpZak
+            <a class="navbar-brand d-flex align-items-center" href="/recipe/all">
+                <img src="/images/logo.png" alt="ReceptOpZak Logo" class="logo">
+                <span class="brand-text fw-medium fs-3">ReceptOpZak</span>
             </a>
             <ul class="navbar-nav">
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/category/all}">Categorieën</a>
+                <li class="nav-item me-3" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-black" th:href="@{/category/all}">Categorieën</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/recipeUser/all}">Gebruikers</a>
+                <li class="nav-item me-3" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-black" th:href="@{/recipeUser/all}">Gebruikers</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/ingredient/all}">Ingrediënten</a>
+                <li class="nav-item me-3" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-black" th:href="@{/ingredient/all}">Ingrediënten</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('USER')">
-                    <a class="nav-link" th:href="@{/recipe/favorites}">Favoriete recepten</a>
+                <li class="nav-item me-3" sec:authorize="hasRole('USER')">
+                    <a class="nav-link text-black" th:href="@{/recipe/favorites}"><i
+                            class="bi bi-heart-fill text-danger"></i> Favoriete recepten
+                    </a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/login}">Login</a>
+                    <a class="btn btn-primary" th:href="@{/login}" style="width: 100px;">Login</a>
                 </li>
                 <li>
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout
-                    <span sec:authentication="name"></span>
-                </a>
+                    <a class="btn btn-outline-primary" sec:authorize="isAuthenticated()" th:href="@{/logout}"
+                       style="width: 150px;">Logout
+                        <span sec:authentication="name"></span>
+                    </a>
                 </li>
-
             </ul>
-
         </div>
     </nav>
 </div>
