@@ -23,6 +23,7 @@ public class RecipeSecurityConfig {
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/", "recipe/all", "recipe/detail/*").permitAll()
                         .requestMatchers("/css/**", "/webjars/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/image/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
